@@ -14,5 +14,6 @@ gem 'rubocop', '~> 0.52.0'
 gem 'sinatra', '~> 2.0.2'
 gem 'sinatra-contrib', '~> 2.0.0'
 
-
-gem 'puma'
+group :production do
+  gem 'puma'
+end

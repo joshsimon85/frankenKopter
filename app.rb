@@ -3,7 +3,7 @@ require 'sinatra'
 require 'bcrypt'
 
 require_relative 'database_persistence'
-
+require_relative 'session_persistence'
 configure do
   enable :sessions
   set :session, 'secret'
@@ -24,7 +24,7 @@ def image_path
 end
 
 before do
-  #@session = SessionPersistence.new(session)
+  @session = SessionPersistence.new(session)
   @storage = DatabasePersistence.new(logger)
 end
 
@@ -99,11 +99,11 @@ end
 
 get '/contact' do
   @title = 'FrankenKopter | Contact'
-
+  
   erb :contact, layout: :layout
 end
 
-post '/contact' do
+post '/contact/new' do
   first_name = params[:first_name]
   last_name = params[:last_name]
   email = params[:email]
