@@ -92,14 +92,14 @@ not_found do
 end
 
 get '/' do
-  @title = 'FrankenKopter'
+  @title = 'FrankenKopter | Home'
 
   erb :home, layout: :layout
 end
 
 get '/contact' do
   @title = 'FrankenKopter | Contact'
-  
+
   erb :contact, layout: :layout
 end
 
