@@ -1,0 +1,157 @@
+@import url('whitespace-reset.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+
+body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+nav {
+  position: relative;
+}
+
+nav ul {
+  display: inline-block;
+  top: 50%;
+  margin-top: -20px;
+  left: 40%;
+  position: absolute;
+  z-index: 1;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  color: #8DCF0E;
+  font-size: 18px;
+  margin-right: 50px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+nav a:hover {
+ color: #4d7107
+}
+
+nav a.active {
+  text-decoration: underline;
+}
+
+main > figure > img {
+  display: block;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+figure + h1 {
+  color: #3467D7;
+}
+
+.highlights {
+  color: #3467D7;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.highlights li {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.about {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.about p {
+  font-size: 18px;
+  line-height: 30px;
+  text-indent: 20px;
+  margin-bottom: 10px;
+}
+
+.contact {
+  border: 1px solid #CECECE;
+  display: block;
+  margin: 0 auto 100px auto;
+  width: 70%;
+}
+
+.contact dt {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.contact span {
+  font-size: 14px;
+  vertical-align: top;
+}
+
+.names {
+  display: inline-block;
+}
+
+.contact dd input {
+  border-radius: 4px;
+  border: 1px solid #cecece;
+  height: 35px;
+  width: 200px;
+}
+
+.contact .names input {
+  width: 150px;
+}
+
+.contact dl {
+  margin: 20px 0 20px 20px;
+}
+
+.contact dd {
+  margin-bottom: 20px;
+}
+
+.contact input {
+  font-size: 18px;
+}
+
+.contact textarea {
+  font-size: 18px;
+  resize: vertical;
+}
+
+.contact [type="submit"] {
+  border-radius: 5px;
+  background-color: #8DCF0E;
+  color: #FFF;
+  height: 40px;
+  width: 100px;
+}
+
+.contact p {
+  margin-top: 20px;
+}
+
+.invalid {
+  outline: 1px solid red;
+}
+
+input:focus {
+  outline: none;
+}
+
+.invalid_first, .invalid_last, .invalid_email, .invalid_number, .invalid_message {
+  display: none;
+  color: red;
+}
+
+.contact textarea:focus {
+  outline: none;
+  box-shadow: none;
+}
