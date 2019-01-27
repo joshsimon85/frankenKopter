@@ -4,7 +4,6 @@ ruby '2.5.0'
 
 gem 'bcrypt', '~> 3.1.0'
 gem 'erubis', '~> 2.7.0'
-gem 'fileutils', '~> 1.0.0'
 gem 'minitest', '~> 5.11.0'
 gem 'minitest-reporters', '~> 1.1.0'
 gem 'pg', '~> 1.0.0'

@@ -12,6 +12,8 @@ class DatabasePersistence
       PG.connect(ENV['DATABASE_URL'])
     elsif Sinatra::Base.development?
       PG.connect(dbname: 'franken_kopter')
+    else
+      PG.connect(dbname: 'test_franken_kopter')
     end
   end
 

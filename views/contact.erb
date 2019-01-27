@@ -3,26 +3,43 @@
   <dl>
     <label>
       <dt>Tell Us Your Name <span>*</span></dt>
-      <dd class="names"><input type="text" name="first_name" placeholder="First name"></dd>
-      <dd class="names"><input type="text" name="last_name" placeholder="Last name"></dd>
+      <dd class="names">
+        <input type="text" name="first_name" placeholder="First name"
+               value="<%= session[:first_name] %>">
+      </dd>
+      <dd class="names">
+        <input type="text" name="last_name" placeholder="Last name"
+               value="<%= session[:last_name] %>">
+      </dd>
       <dd class="invalid_first">Please provide a first name</dd>
       <dd class="invalid_last">Please provide a last name</dd>
     </label>
     <label>
       <dt>Enter Your Email <span>*</span></dt>
-      <dd><input type="email" name="email" placeholder="example@domain.com"></dd>
+      <dd>
+        <input type="email" name="email" placeholder="example@domain.com"
+               value="<%= session[:email] %>">
+      </dd>
     </label>
     <label>
       <dt>Enter Your Phone Number</dt>
-      <dd><input type="tel" name="phone_number" placeholder="###-###-####"></dd>
+      <dd>
+        <input type="tel" name="phone_number" placeholder="###-###-####"
+               value="<%= session[:phone_number] %>">
+      </dd>
       <dd class="invalid_number">Please Provide a valid phone number</dd>
     </label>
     <label>
       <dt>Message <span>*</span></dt>
-      <dd><textarea name="message" rows="8" cols="100" placeholder="Write us a message"></textarea></dd>
+      <dd>
+        <textarea name="message" rows="8" cols="100"
+                  placeholder="Write us a message"
+                  value="<%= session[:message] %>">
+        </textarea>
+      </dd>
       <dd class="invalid_message">Please provide a message</dd>
     </label>
-      <input type="submit" name="" value="Submit">
+    <input type="submit" name="" value="Submit">
     <p>Items marked with <span>*</span> are required</p>
   </dl>
 </form>

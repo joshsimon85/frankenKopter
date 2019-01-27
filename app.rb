@@ -3,7 +3,7 @@ require 'sinatra'
 require 'bcrypt'
 
 require_relative 'database_persistence'
-require_relative 'session_persistence'
+
 configure do
   enable :sessions
   set :session, 'secret'
@@ -12,19 +12,13 @@ end
 
 configure(:development) do
   require 'sinatra/reloader'
-  require 'pry'
   require 'rubocop'
-  also_reload 'database_persistence.rb'
+  require 'pry'
   also_reload 'stylesheets/main.css'
   also_reload 'database_persistence.rb'
 end
 
-def image_path
-  File.expand_path('../images', __FILE__)
-end
-
 before do
-  @session = SessionPersistence.new(session)
   @storage = DatabasePersistence.new(logger)
 end
 
@@ -118,6 +112,7 @@ post '/contact/new' do
 
     redirect '/'
   else
+    session[:first_name] = params[:first_name]
     redirect '/contact'
   end
 end
