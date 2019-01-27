@@ -14,7 +14,7 @@ configure(:development) do
   require 'sinatra/reloader'
   require 'pry'
   require 'rubocop'
-
+  aldo_reload 'database_persistence.rb'
   also_reload 'stylesheets/main.css'
   also_reload 'database_persistence.rb'
 end
@@ -29,7 +29,7 @@ before do
 end
 
 after do
-  #@storage.disconnect
+  @storage.disconnect
 end
 
 helpers do
