@@ -13,7 +13,4 @@ gem 'rack-test', '~> 0.8.0'
 gem 'rubocop', '~> 0.52.0'
 gem 'sinatra', '~> 2.0.2'
 gem 'sinatra-contrib', '~> 2.0.0'
-
-group :production do
-  gem 'puma'
-end
+gem 'puma'
