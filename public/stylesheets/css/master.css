@@ -146,7 +146,7 @@ input:focus {
   outline: none;
 }
 
-.invalid_first, .invalid_last, .invalid_email, .invalid_number, .invalid_message {
+.invalid_text, .invalid_first, .invalid_last {
   display: none;
   color: red;
 }
@@ -154,4 +154,8 @@ input:focus {
 .contact textarea:focus {
   outline: none;
   box-shadow: none;
+}
+
+.session_invalid, .session_invalid_first, .session_invalid_last {
+  color: red;
 }

@@ -14,7 +14,7 @@ configure(:development) do
   require 'sinatra/reloader'
   require 'rubocop'
   require 'pry'
-  also_reload 'stylesheets/main.css'
+  also_reload 'stylesheets/master.css'
   also_reload 'database_persistence.rb'
 end
 
@@ -53,28 +53,39 @@ helpers do
     message.match?(/[a-z]+/i) && message != ''
   end
 
-  def valid_form_data?(first, last, email, phone, message)
-    invalid_fields = {}
-
-    form_data = {
-      :first_name  => valid_first_name?(first),
-      :last_name => valid_last_name?(last),
-      :email => valid_email?(email),
-      :phone => valid_phone?(phone),
-      :message => valid_message?(message)
-    }
-
-    form_data.each_key do |key|
-      unless form_data[key] == true
-        invalid_fields[key] = form_data[key]
-      end
-    end
-
-    invalid_fields
-  end
-
   def convert(phone_number)
     phone_number.gsub(/[^0-9]/, '')
+  end
+
+  def validate(data)
+    invalid_data = false
+
+    unless valid_first_name?(data[:first_name])
+      invalid_data = true
+      session[:first_name_error] = 'Please provide a valid first name'
+    end
+
+    unless valid_last_name?(data[:last_name])
+      invalid_data = true
+      session[:last_name_error] = 'Please provide a valid last name'
+    end
+
+    unless valid_phone?(data[:phone_number])
+      invalid_data = true
+      session[:phone_number_error] = 'Please provide a valid phone number'
+    end
+
+    unless valid_email?(data[:email])
+      invalid_data = true
+      session[:email_error] = 'Please provide a valid email'
+    end
+
+    unless valid_message?(data[:message])
+      invalid_data = true
+      session[:message_error] = 'Please provide a valid message'
+    end
+
+    invalid_data
   end
 end
 
@@ -98,21 +109,26 @@ get '/contact' do
 end
 
 post '/contact/new' do
-  first_name = params[:first_name]
-  last_name = params[:last_name]
-  email = params[:email]
-  phone_number = params[:phone_number]
-  message = params[:message]
+  data_hash = {
+                :first_name => params[:first_name],
+                :last_name => params[:last_name],
+                :email => params[:email],
+                :phone_number => params[:phone_number],
+                :message => params[:message]
+              }
 
-  invalid_fields = valid_form_data?(first_name, last_name, email, phone_number,
-                                    message)
-  if invalid_fields.length.zero?
-    @storage.add_email(first_name, last_name, email, convert(phone_number),
-                       message)
+  invalid_data = validate(data_hash)
 
+  if !invalid_data
+    @storage.add_email(data_hash)
+    session.clear
+    
     redirect '/'
   else
-    session[:first_name] = params[:first_name]
+    data_hash.each_key do |key|
+      session[key] = data_hash[key]
+    end
+
     redirect '/contact'
   end
 end

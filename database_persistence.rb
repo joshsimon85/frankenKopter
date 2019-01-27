@@ -26,7 +26,13 @@ class DatabasePersistence
     @db.exec_params(statement, params)
   end
 
-  def add_email(first_name, last_name, phone_number, email, message)
+  def add_email(data)
+    first_name = data[:first_name]
+    last_name = data[:last_name]
+    phone_number = data[:phone_number]
+    email = data[:email]
+    message = data[:message]
+
     sql = <<~SQL
     INSERT INTO emails (first_name, last_name, phone_number, email, message)
          VALUES ($1, $2, $3, $4, $5);

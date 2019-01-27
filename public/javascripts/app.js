@@ -7,8 +7,10 @@ $(function() {
     },
     toggleErrorMessage: function(name, bool) {
       if (name === 'first_name') {
+        $('.session_invalid_first').hide();
         $('.invalid_first').toggle(bool);
       } else {
+        $('.session_invalid_last').hide();
         $('.invalid_last').toggle(bool);
       }
     },
@@ -27,13 +29,16 @@ $(function() {
       return reg.test(email);
     },
     handleEmailValidation: function($input, value) {
-      var $invalidMessage = $('.invalid_email');
+      var $message = $input.closest('label').find('.invalid_text');
+
+      $input.closest('label').find('.session_invalid').hide();
+
       if (!(this.isValidEmail(value))) {
         $input.addClass('invalid');
-        $invalidMessage.show();
+        $message.show();
       } else {
         $input.removeClass('invalid');
-        $invalidMessage.hide();
+        $message.hide();
       }
     },
     isValidPhoneNumber: function(number) {
@@ -44,7 +49,9 @@ $(function() {
       return true;
     },
     handlePhoneValidation: function($input, value) {
-      var $message = $('.invalid_number');
+      var $message = $input.closest('label').find('.invalid_text');
+
+      $input.closest('label').find('.session_invalid').hide();
 
       if (value === '') {
         $input.removeClass('invalid');
@@ -65,7 +72,9 @@ $(function() {
       return regex.test(value) && value !== '';
     },
     handleMessageValidation: function($input, value) {
-      var $message = $('.invalid_message');
+      var $message = $input.closest('label').find('.invalid_text');
+
+      $input.closest('label').find('.session_invalid').hide();
 
       if (!(this.isValidMessage(value))) {
         $input.addClass('invalid');
