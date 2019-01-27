@@ -140,7 +140,7 @@ $(function() {
         this.handleMessageValidation($input, value);
       }
 
-      this.enableSubmitButton()
+      this.enableSubmitButton();
       var invalidInputs = $('form input').filter(function(_, input) {
         return $(input).hasClass('invalid');
       });
@@ -157,7 +157,6 @@ $(function() {
     },
     init: function() {
       this.bindEvents();
-      this.setHome();
     },
   };
 
