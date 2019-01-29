@@ -14,7 +14,7 @@ configure(:development) do
   require 'sinatra/reloader'
   require 'rubocop'
   require 'pry'
-  also_reload 'stylesheets/master.css'
+  also_reload 'stylesheets/css/master.css'
   also_reload 'database_persistence.rb'
 end
 
@@ -122,7 +122,7 @@ post '/contact/new' do
   if !invalid_data
     @storage.add_email(data_hash)
     session.clear
-    
+
     redirect '/'
   else
     data_hash.each_key do |key|

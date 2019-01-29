@@ -1,6 +1,10 @@
 @import url('whitespace-reset.css');
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
 }
@@ -110,7 +114,7 @@ figure + h1 {
 }
 
 .contact dl {
-  margin: 20px 0 20px 20px;
+  margin: 20px;
 }
 
 .contact dd {
@@ -119,11 +123,6 @@ figure + h1 {
 
 .contact input {
   font-size: 18px;
-}
-
-.contact textarea {
-  font-size: 18px;
-  resize: vertical;
 }
 
 .contact [type="submit"] {
@@ -151,6 +150,11 @@ input:focus {
   color: red;
 }
 
+.contact textarea {
+  font-size: 18px;
+  resize: none;
+  width: 100%;
+}
 .contact textarea:focus {
   outline: none;
   box-shadow: none;
