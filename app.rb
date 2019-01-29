@@ -82,14 +82,13 @@ helpers do
 
     unless valid_message?(data[:message])
       invalid_data = true
-      session[:message_error] = 'Please provide a valid message'
+      session[:message_error] = 'Please provide a message'
     end
 
     invalid_data
   end
 end
 
-#404 pages
 not_found do
   status 404
 
@@ -110,12 +109,12 @@ end
 
 post '/contact/new' do
   data_hash = {
-                :first_name => params[:first_name],
-                :last_name => params[:last_name],
-                :email => params[:email],
-                :phone_number => params[:phone_number],
-                :message => params[:message]
-              }
+    first_name: params[:first_name],
+    last_name: params[:last_name],
+    email: params[:email],
+    phone_number: params[:phone_number],
+    message: params[:message]
+  }
 
   invalid_data = validate(data_hash)
 

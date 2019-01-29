@@ -1,8 +1,3 @@
-FrankenKopter app
-todo
-post request via ajax and get rid of submit button disabled
-set up sessions
-update proctfile
-add group development in gem file
-
-textarea content padding fix
+This is a website created for FrakenKopter LLC.
+To run the app, run bundle install, then run tests at test/app_test.rb to make sure everything that has test coverage is working properly.
+app.rb runs the app on local host

@@ -29,9 +29,9 @@ $(function() {
       return reg.test(email);
     },
     handleEmailValidation: function($input, value) {
-      var $message = $input.closest('label').find('.invalid_text');
+      var $message = $input.closest('dl').find('.invalid_text');
 
-      $input.closest('label').find('.session_invalid').hide();
+      $input.closest('dl').find('.session_invalid').hide();
 
       if (!(this.isValidEmail(value))) {
         $input.addClass('invalid');
@@ -49,9 +49,9 @@ $(function() {
       return true;
     },
     handlePhoneValidation: function($input, value) {
-      var $message = $input.closest('label').find('.invalid_text');
+      var $message = $input.closest('dl').find('.invalid_text');
 
-      $input.closest('label').find('.session_invalid').hide();
+      $input.closest('dl').find('.session_invalid').hide();
 
       if (value === '') {
         $input.removeClass('invalid');
@@ -72,9 +72,9 @@ $(function() {
       return regex.test(value) && value !== '';
     },
     handleMessageValidation: function($input, value) {
-      var $message = $input.closest('label').find('.invalid_text');
+      var $message = $input.closest('dl').find('.invalid_text');
 
-      $input.closest('label').find('.session_invalid').hide();
+      $input.closest('dl').find('.session_invalid').hide();
 
       if (!(this.isValidMessage(value))) {
         $input.addClass('invalid');

@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS franken_kopter
+
 CREATE TABLE emails (
    id SERIAL PRIMARY KEY,
    first_name varchar(50) NOT NULL,
