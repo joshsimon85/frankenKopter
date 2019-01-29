@@ -10,16 +10,14 @@ body {
 }
 
 nav {
+  padding-bottom: 25px;
+  padding-top: 25px;
   position: relative;
+  text-align: center;
 }
 
 nav ul {
   display: inline-block;
-  top: 50%;
-  margin-top: -20px;
-  left: 40%;
-  position: absolute;
-  z-index: 1;
 }
 
 nav li {
@@ -32,6 +30,10 @@ nav a {
   margin-right: 50px;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+nav li:last-of-type a {
+  margin-right: 0;
 }
 
 nav a:hover {
@@ -162,4 +164,11 @@ input:focus {
 
 .session_invalid, .session_invalid_first, .session_invalid_last {
   color: red;
+}
+
+#logo {
+  height: 150px;
+  left: 0;
+  position: absolute;
+  top: 0;
 }
