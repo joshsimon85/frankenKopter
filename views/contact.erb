@@ -1,58 +1,72 @@
-<h1>Send Us A Message</h1>
-<form class="contact" action="/contact/new" method="post">
-  <dl>
-    <dt>
-      <label for="first_name">Tell Us Your Name <span>*</span></label>
-    </dt>
-    <dd class="names">
-      <input type="text" name="first_name" id="first_name"
-             placeholder="First name"
-             value="<%= session.delete(:first_name) %>">
-    </dd>
-    <dd class="names">
-      <input type="text" name="last_name"
-             placeholder="Last name"
-             value="<%= session.delete(:last_name) %>">
-    </dd>
-    <dd class="invalid_first">Please provide a first name</dd>
-    <dd class="session_invalid_first"><%= session.delete(:first_name_error) %></dd>
-    <dd class="invalid_last">Please provide a last name</dd>
-    <dd class="session_invalid_last"><%= session.delete(:last_name_error) %></dd>
-  </dl>
-  <dl>
-    <dt>
-      <label for="email">Enter Your Email <span>*</span></label>
-    </dt>
-    <dd>
-      <input type="email" name="email" placeholder="example@domain.com"
-             value="<%= session.delete(:email) %>"
-             id="email">
-    </dd>
-    <dd class="invalid_text">Please provide a valid email</dd>
-    <dd class="session_invalid"><%= session.delete(:email_error) %></dd>
-  </dl>
-  <dl>
-    <dt>
-      <label for="phone_number">Enter Your Phone Number</label>
-    </dt>
-    <dd>
-      <input type="tel" name="phone_number" placeholder="###-###-####"
-             value="<%= session[:phone_number] %>"
-             id="phone_number">
-    </dd>
-    <dd class="invalid_text">Please Provide a valid phone number</dd>
-    <dd class="session_invalid"><%= session.delete(:phone_number_error) %></dd>
-  </dl>
-  <dl>
-    <dt>
-      <label for="message">Message <span>*</span></label>
-    </dt>
-    <dd>
-      <textarea name="message" placeholder="Write us a message" id="message" rows="8" cols="98"></textarea>
-    </dd>
-    <dd class="invalid_text">Please provide a message</dd>
-    <dd class="session_invalid"><%= session.delete(:message_error) %></dd>
-  </dl>
-  <input type="submit" name="submit" value="Submit">
-  <p>Items marked with <span>*</span> are required</p>
-</form>
+<header>
+  <div class="container">
+      <img src="../images/logo.png" id="logo" alt="FrankenKopter Logo">
+  </div>
+  <nav>
+    <ul>
+      <li><a data-id="home" href="/">Home</a></li>
+      <li><a data-id="about" href="/about">About</a></li>
+      <li><a class="active" data-id="contact" href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <h1>Send Us A Message</h1>
+  <form class="contact" action="/contact/new" method="post">
+    <dl>
+      <dt>
+        <label for="first_name">Tell Us Your Name <span>*</span></label>
+      </dt>
+      <dd class="names">
+        <input type="text" name="first_name" id="first_name"
+               placeholder="First name"
+               value="<%= session.delete(:first_name) %>">
+      </dd>
+      <dd class="names">
+        <input type="text" name="last_name"
+               placeholder="Last name"
+               value="<%= session.delete(:last_name) %>">
+      </dd>
+      <dd class="invalid_first">Please provide a first name</dd>
+      <dd class="session_invalid_first"><%= session.delete(:first_name_error) %></dd>
+      <dd class="invalid_last">Please provide a last name</dd>
+      <dd class="session_invalid_last"><%= session.delete(:last_name_error) %></dd>
+    </dl>
+    <dl>
+      <dt>
+        <label for="email">Enter Your Email <span>*</span></label>
+      </dt>
+      <dd>
+        <input type="email" name="email" placeholder="example@domain.com"
+               value="<%= session.delete(:email) %>"
+               id="email">
+      </dd>
+      <dd class="invalid_text">Please provide a valid email</dd>
+      <dd class="session_invalid"><%= session.delete(:email_error) %></dd>
+    </dl>
+    <dl>
+      <dt>
+        <label for="phone_number">Enter Your Phone Number</label>
+      </dt>
+      <dd>
+        <input type="tel" name="phone_number" placeholder="###-###-####"
+               value="<%= session[:phone_number] %>"
+               id="phone_number">
+      </dd>
+      <dd class="invalid_text">Please Provide a valid phone number</dd>
+      <dd class="session_invalid"><%= session.delete(:phone_number_error) %></dd>
+    </dl>
+    <dl>
+      <dt>
+        <label for="message">Message <span>*</span></label>
+      </dt>
+      <dd>
+        <textarea name="message" placeholder="Write us a message" id="message" rows="8" cols="98"></textarea>
+      </dd>
+      <dd class="invalid_text">Please provide a message</dd>
+      <dd class="session_invalid"><%= session.delete(:message_error) %></dd>
+    </dl>
+    <input type="submit" name="submit" value="Submit">
+    <p>Items marked with <span>*</span> are required</p>
+  </form>
+</main>

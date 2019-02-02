@@ -39,7 +39,7 @@ helpers do
     email.match?(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
   end
 
-  def valid_phone?(phone)
+  def valid_phone_number?(phone)
     if phone == ''
       true
     elsif phone.match?(/[a-z]/i)
@@ -57,33 +57,53 @@ helpers do
     phone_number.gsub(/[^0-9]/, '')
   end
 
+  def create_methods(data) #added
+    methods = []
+
+    data.each_key do |key|
+      methods.push("valid_#{key}?")
+    end
+
+    methods
+  end
+
   def validate(data)
     invalid_data = false
+    #keys = data.keys
+    #methods = create_methods(data)
+binding.pry
+  #  methods.each_with_index do |method, index|
+  #    key = keys[index]
+  #    unless send(method[data[key]])
+  #      invalid_data = true
+  #    end
+  #  end
+  unless valid_first_name?(data[:first_name])
+    invalid_data = true
+    session[:first_name_error] = 'Please provide a valid first name'
+  end
 
-    unless valid_first_name?(data[:first_name])
-      invalid_data = true
-      session[:first_name_error] = 'Please provide a valid first name'
-    end
+  unless valid_last_name?(data[:last_name])
+    invalid_data = true
+    session[:last_name_error] = 'Please provide a valid last name'
+  end
 
-    unless valid_last_name?(data[:last_name])
-      invalid_data = true
-      session[:last_name_error] = 'Please provide a valid last name'
-    end
+  unless valid_phone_number?(data[:phone_number])
+    invalid_data = true
+    session[:phone_number_error] = 'Please provide a valid phone number'
+  end
 
-    unless valid_phone?(data[:phone_number])
-      invalid_data = true
-      session[:phone_number_error] = 'Please provide a valid phone number'
-    end
+  unless valid_email?(data[:email])
+    invalid_data = true
+    session[:email_error] = 'Please provide a valid email'
+  end
 
-    unless valid_email?(data[:email])
-      invalid_data = true
-      session[:email_error] = 'Please provide a valid email'
-    end
+  unless valid_message?(data[:message])
+    invalid_data = true
+    session[:message_error] = 'Please provide a message'
+  end
 
-    unless valid_message?(data[:message])
-      invalid_data = true
-      session[:message_error] = 'Please provide a message'
-    end
+
 
     invalid_data
   end

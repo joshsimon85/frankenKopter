@@ -8,6 +8,7 @@ require 'fileutils'
 require 'rack/test'
 
 require_relative '../app'
+require_relative '../database_persistence'
 
 class FrankenKopterTest < MiniTest::Test
   include Rack::Test::Methods
@@ -16,11 +17,20 @@ class FrankenKopterTest < MiniTest::Test
     Sinatra::Application
   end
 
+  def setup
+
+  end
+
+  def teardown
+
+  end
+
   def test_home
     get '/'
 
     assert_equal 200, last_response.status
     assert_includes last_response.body, '<h1>Freakish Performance'
+    assert_includes last_response.body, '<a class="active" data-id="home"'
   end
 
   def test_about
@@ -28,6 +38,7 @@ class FrankenKopterTest < MiniTest::Test
 
     assert_equal 200, last_response.status
     assert_includes last_response.body, '<h1>About Us</h1>'
+    assert_includes last_response.body, '<a class="active" data-id="about"'
   end
 
   def test_contact
@@ -35,5 +46,62 @@ class FrankenKopterTest < MiniTest::Test
 
     assert_equal 200, last_response.status
     assert_includes last_response.body, '<form class="contact"'
+    assert_includes last_response.body, '<a class="active" data-id="contact"'
+  end
+
+  def test_all_invalid_contact
+    post '/contact/new', first_name: '', last_name: '', email: '',
+                         phone_number: 'a', message: ''
+
+    assert_equal 302, last_response.status
+
+    get last_response['Location']
+    assert_includes last_response.body, 'Please provide a valid first name'
+    assert_includes last_response.body, 'Please provide a valid last name'
+    assert_includes last_response.body, 'Please provide a valid email'
+    assert_includes last_response.body, 'Please provide a valid phone number'
+    assert_includes last_response.body, 'Please provide a message'
+  end
+
+  def test_all_valid_contact
+    post '/contact/new', first_name: 'josh', last_name: 'simon',
+                         email: 'test@test.com', phone_number: '',
+                         message: 'Testing'
+
+    assert_equal 302, last_response.status
+
+    get last_response['Location']
+    assert_includes last_response.body, 'FrankenKopter | Home'
+  end
+
+  def test_invalid_first_last_names_contact
+    post '/contact/new', first_name: '1', last_name: '?', email: '',
+                         phone_number: '', message: ''
+
+    assert_equal 302, last_response.status
+
+    get last_response['Location']
+    assert_includes last_response.body, 'Please provide a valid first name'
+    assert_includes last_response.body, 'Please provide a valid last name'
+  end
+
+  def test_valid_empty_phone_number
+    post '/contact/new', first_name: '', last_name: '', email: '',
+                         phone_number: '', message: ''
+
+    assert_equal 302, last_response.status
+
+    get last_response['Location']
+    refute_includes last_response.body, 'Please provide a valid phone number'
+  end
+
+  def test_invalid_email
+    post '/contact/new', first_name: '', last_name: '', email: 'test.com',
+                         phone_number: '', message: ''
+
+    assert_equal 302, last_response.status
+
+    get last_response['Location']
+    assert_includes last_response.body, 'Please provide a valid email'
   end
 end

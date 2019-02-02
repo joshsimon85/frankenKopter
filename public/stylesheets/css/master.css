@@ -47,8 +47,9 @@ textarea:focus {
 }
 
 nav {
-  padding-bottom: 25px;
-  padding-top: 25px;
+  height: 50px;
+  padding-bottom: 20px;
+  padding-top: 50px;
   position: relative;
   text-align: center;
 }
@@ -76,17 +77,23 @@ nav li:last-of-type a {
 
 nav a:hover {
   background: transparent;
- color: #4d7107
+  color: #4d7107;
 }
 
 nav a.active {
-  text-decoration: underline;
+  border-bottom: 1px solid #8DCF0E;
 }
 
 /* Home Page */
-main > figure > img {
+main > figure {
   display: block;
-  margin: 20px auto 0 auto;
+  margin: 20px 50px 0 50px;
+  text-align: center;
+}
+
+main > figure > img {
+  display: inline-block;
+  width: 100%;
 }
 
 figure + h1 {
@@ -199,4 +206,31 @@ figure + h1 {
 .session_invalid, .session_invalid_first, .session_invalid_last {
   background-color: transparent;
   color: red;
+}
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  #logo {
+    display: inline-block;
+    height: 100px;
+    position: relative;
+  }
+
+  .container {
+    text-align: center;
+  }
+
+  main > figure {
+    display: block;
+    margin: 20px 20px 0 20px;
+    text-align: center;
+  }
+
+  nav {
+    height: auto;
+    margin-top: 25px;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+  }
 }
