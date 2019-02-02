@@ -234,3 +234,17 @@ figure + h1 {
     width: 100%;
   }
 }
+
+@media screen and (max-width: 670px) {
+  main > figure {
+    margin: 20px 0;
+  }
+
+  .about {
+    width: 100%;
+  }
+
+  .contact {
+    width: 100%;
+  }
+}

@@ -57,7 +57,7 @@ helpers do
     phone_number.gsub(/[^0-9]/, '')
   end
 
-  def create_methods(data) #added
+  def create_methods(data)
     methods = []
 
     data.each_key do |key|
@@ -69,41 +69,19 @@ helpers do
 
   def validate(data)
     invalid_data = false
-    #keys = data.keys
-    #methods = create_methods(data)
-binding.pry
-  #  methods.each_with_index do |method, index|
-  #    key = keys[index]
-  #    unless send(method[data[key]])
-  #      invalid_data = true
-  #    end
-  #  end
-  unless valid_first_name?(data[:first_name])
-    invalid_data = true
-    session[:first_name_error] = 'Please provide a valid first name'
-  end
+    keys = data.keys
+    methods = create_methods(data)
 
-  unless valid_last_name?(data[:last_name])
-    invalid_data = true
-    session[:last_name_error] = 'Please provide a valid last name'
-  end
+    methods.each_with_index do |method, index|
+      key = keys[index]
 
-  unless valid_phone_number?(data[:phone_number])
-    invalid_data = true
-    session[:phone_number_error] = 'Please provide a valid phone number'
-  end
-
-  unless valid_email?(data[:email])
-    invalid_data = true
-    session[:email_error] = 'Please provide a valid email'
-  end
-
-  unless valid_message?(data[:message])
-    invalid_data = true
-    session[:message_error] = 'Please provide a message'
-  end
-
-
+      unless send(method, data[key])
+        invalid_data = true
+        text = key.to_s.sub(/_/, ' ')
+        session_key = "#{key}_error".to_sym
+        session[session_key] = "Please provide a valid #{text}"
+      end
+    end
 
     invalid_data
   end
