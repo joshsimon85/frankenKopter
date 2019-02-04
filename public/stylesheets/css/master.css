@@ -14,8 +14,12 @@ body {
 h1 {
   font-size: 26px;
   margin-bottom: 20px;
-  margin-top: 20px;
+  margin-top: 40px;
   text-align: center;
+}
+
+.tag-line {
+  margin-top: 20px;
 }
 
 input {
@@ -27,6 +31,8 @@ input:focus {
 }
 
 textarea {
+  border: 1px solid #CECECE;
+  border-radius: 4px;
   font-size: 18px;
   resize: none;
   text-indent: 5px;
@@ -99,6 +105,7 @@ main > figure > img {
 figure + h1 {
   background: transparent;
   color: #3467D7;
+  margin-top: 20px;
 }
 
 .highlights {
@@ -165,20 +172,13 @@ figure + h1 {
   width: 200px;
 }
 
-.contact .names input {
-  width: 150px;
-}
-
 .contact dl {
   margin: 20px 20px 20px 0;
 }
 
-.contact dd {
-  margin-bottom: 20px;
-}
-
 .contact input {
   font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .contact [type="submit"] {
@@ -193,8 +193,16 @@ figure + h1 {
   margin-top: 20px;
 }
 
-.invalid {
-  outline: 1px solid red;
+.contact .invalid {
+  border: 1px solid red;
+}
+
+.contact input:focus {
+  border: 1px solid #8DCF0E;
+}
+
+.contact textarea:focus {
+  border: 1px solid #8DCF0E;
 }
 
 .invalid_text, .invalid_first, .invalid_last {

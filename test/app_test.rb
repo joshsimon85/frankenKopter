@@ -17,14 +17,6 @@ class FrankenKopterTest < MiniTest::Test
     Sinatra::Application
   end
 
-  def setup
-
-  end
-
-  def teardown
-
-  end
-
   def test_home
     get '/'
 
