@@ -44,6 +44,20 @@ textarea:focus {
   box-shadow: none;
 }
 
+/* Flash Message */
+.flash-message {
+  color: #8DCF0E;
+  font-size: 16px;
+  text-align: center;
+}
+
+.flash-message p {
+  background: rgba(141, 207, 14, 0.1);
+  border-bottom: 1px solid #8DCF0E;
+  border-top: 1px solid #8DCF0E;
+  padding: 10px 0;
+}
+
 /* Nav Bar */
 #logo {
   height: 150px;

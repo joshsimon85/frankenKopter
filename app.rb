@@ -119,7 +119,8 @@ post '/contact/new' do
   if !invalid_data
     @storage.add_email(data_hash)
     session.clear
-
+    session[:success] = 'Your message has been successfully sent'
+    
     redirect '/'
   else
     data_hash.each_key do |key|

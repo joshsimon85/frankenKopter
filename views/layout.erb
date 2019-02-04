@@ -10,7 +10,12 @@
     <script src="/javascripts/app.js"></script>
   </head>
   <body>
-
+    <div class="flash-message">
+      <% if session[:success] %>
+        <p class="success"><%= session.delete(:success) %></p>
+      <% end %>
+    </div>
+    
     <%== yield %>
 
   </body>

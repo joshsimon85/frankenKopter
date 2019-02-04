@@ -34,7 +34,7 @@ class DatabasePersistence
     message = data[:message]
 
     sql = <<~SQL
-    INSERT INTO emails (first_name, last_name, phone_number, email, message)
+      INSERT INTO emails (first_name, last_name, phone_number, email, message)
          VALUES ($1, $2, $3, $4, $5);
     SQL
 
@@ -44,7 +44,8 @@ class DatabasePersistence
   private
 
   def tuple_to_list_hash(tuple)
-    { id: tuple['id'].to_i,
+    {
+      id: tuple['id'].to_i,
       first_name: tuple['first_name'],
       last_name: tuple['last_name'],
       phone_number: tuple['phone_number'],
