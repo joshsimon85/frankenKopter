@@ -96,4 +96,55 @@ class FrankenKopterTest < MiniTest::Test
     get last_response['Location']
     assert_includes last_response.body, 'Please provide a valid email'
   end
+
+  def test_get_admin_login
+    get '/login'
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, '<form class="admin-login"'
+  end
+
+  def test_get_admin_page
+    get '/admin'
+
+    assert_equal 302, last_response.status
+
+    get last_response['Location']
+    assert_includes last_response.body, '<form class="admin-login"'
+  end
+
+  def test_invalid_admin_login
+    post '/login/authenticate', user_name: 'admin', password: 'none'
+
+    assert_equal 302, last_response.status
+    get last_response['Location']
+    assert_includes last_response.body, '<form class="admin-login"'
+  end
+
+  def test_valid_admin_login
+    post '/login/authenticate', user_name: 'admin', password: 'admin'
+
+    assert_equal 302, last_response.status
+    get last_response['Location']
+    assert_includes last_response.body, '<li><a href="/logout">Log Out</a></li>'
+  end
+
+  def test_logout
+    post '/login/authenticate', user_name: 'admin', password: 'admin'
+
+    assert_equal 302, last_response.status
+    get last_response['Location']
+    assert_includes last_response.body, '<li><a href="/logout">Log Out</a></li>'
+
+    get '/logout'
+    assert_equal 302, last_response.status
+    get last_response['Location']
+    assert_includes last_response.body, '<h1>Freakish Performance'
+
+    get '/admin'
+
+    assert_equal 302, last_response.status
+    get last_response['Location']
+    assert_includes last_response.body, '<form class="admin-login"'
+  end
 end

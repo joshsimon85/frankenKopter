@@ -46,15 +46,23 @@ textarea:focus {
 
 /* Flash Message */
 .flash-message {
-  color: #8DCF0E;
   font-size: 16px;
   text-align: center;
 }
 
-.flash-message p {
+.flash-message .success {
   background: rgba(141, 207, 14, 0.1);
   border-bottom: 1px solid #8DCF0E;
   border-top: 1px solid #8DCF0E;
+  color: #8dcf0e;
+  padding: 10px 0;
+}
+
+.flash-message .error {
+  background: rgba(208, 27, 27, 0.1);
+  border-bottom: 1px solid #cf0e0e;
+  border-top: 1px solid #cf0e0e;
+  color: #cf0e0e;
   padding: 10px 0;
 }
 
@@ -120,6 +128,12 @@ figure + h1 {
   background: transparent;
   color: #3467D7;
   margin-top: 20px;
+}
+
+.home {
+  /*background: #E6E604;*/
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .highlights {
@@ -230,6 +244,29 @@ figure + h1 {
   color: red;
 }
 
+/* Admin Login */
+.admin-login {
+  border: 1px solid #cecece;
+  border-radius: 4px;
+  margin: 150px auto 0 auto;
+  width: 325px;
+}
+
+.admin-login dl {
+  margin: 20px 10px;
+}
+
+.admin-login dt {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.admin-login dd > input {
+  height: 40px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
 /* Responsive */
 @media screen and (max-width: 900px) {
   #logo {
@@ -255,6 +292,12 @@ figure + h1 {
     text-align: center;
     width: 100%;
   }
+}
+
+/* Admin Page */
+.nav-admin {
+  margin-right: 20px;
+  text-align: right;
 }
 
 @media screen and (max-width: 670px) {

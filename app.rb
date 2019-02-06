@@ -1,6 +1,7 @@
 # FrankenKopter
 require 'sinatra'
 require 'bcrypt'
+require 'pony'
 
 require_relative 'database_persistence'
 
@@ -18,8 +19,17 @@ configure(:development) do
   also_reload 'database_persistence.rb'
 end
 
+register do #####
+  def auth(type)
+    condition do
+      redirect '/login' unless send("is_#{type}?")
+    end
+  end
+end
+
 before do
   @storage = DatabasePersistence.new(logger)
+  @admin = session[:admin] #####
 end
 
 after do
@@ -27,6 +37,10 @@ after do
 end
 
 helpers do
+  def is_admin?#######
+    @admin != nil
+  end
+
   def valid_first_name?(first)
     first.match?(/[a-z]+/i)
   end
@@ -85,6 +99,20 @@ helpers do
 
     invalid_data
   end
+
+  def encrypt_password(password)
+    BCrypt::Password.create(password)
+  end
+
+  def valid_password?(stored_password, password)
+    decrypted_password = BCrypt::Password.new(stored_password)
+    decrypted_password == password
+  end
+
+  def valid_admin?(user_name, password)
+    admin = @storage.find_admin(user_name)
+    admin && valid_password?(admin[:password], password)
+  end
 end
 
 not_found do
@@ -120,7 +148,7 @@ post '/contact/new' do
     @storage.add_email(data_hash)
     session.clear
     session[:success] = 'Your message has been successfully sent'
-    
+
     redirect '/'
   else
     data_hash.each_key do |key|
@@ -135,4 +163,36 @@ get '/about' do
   @title = 'FrankenKopter | About'
 
   erb :about, layout: :layout
+end
+
+get '/admin', :auth => :admin do ####
+  @title = 'FrankenKopter | Admin'
+
+  erb :admin, layout: :layout
+end
+
+get '/login' do
+  @title = 'FrakenKopter | Login'
+
+  erb :admin_login, layout: :layout
+end
+
+post '/login/authenticate' do
+  if valid_admin?(params[:user_name], params[:password])
+    admin = @storage.find_admin(params[:user_name])
+    session[:admin] = { id: admin[:id], firt_name: admin[:first_name] }
+
+    redirect '/admin'
+  else
+    session[:user_name] = params[:user_name]
+    session[:error] = 'Sorry that is an incorrect username or password'
+
+    redirect '/login'
+  end
+end
+
+get '/logout' do
+  session[:admin] = nil
+
+  redirect '/'
 end

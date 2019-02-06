@@ -8,7 +8,10 @@ GEM
     builder (3.2.3)
     coderay (1.1.2)
     erubis (2.7.0)
+    mail (2.7.1)
+      mini_mime (>= 0.1.1)
     method_source (0.9.2)
+    mini_mime (1.0.1)
     minitest (5.11.3)
     minitest-reporters (1.1.19)
       ansi
@@ -21,6 +24,8 @@ GEM
     parser (2.6.0.0)
       ast (~> 2.4.0)
     pg (1.0.0)
+    pony (1.12)
+      mail (>= 2.0)
     powerpack (0.1.2)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -64,6 +69,7 @@ DEPENDENCIES
   minitest (~> 5.11.0)
   minitest-reporters (~> 1.1.0)
   pg (~> 1.0.0)
+  pony (~> 1.12)
   pry (~> 0.11.0)
   puma
   rack-test (~> 0.8.0)

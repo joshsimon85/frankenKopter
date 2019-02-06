@@ -41,16 +41,21 @@ class DatabasePersistence
     query(sql, first_name, last_name, phone_number, email, message)
   end
 
+  def find_admin(user_name)
+    sql = 'SELECT * FROM admins WHERE user_name = $1;'
+
+    result = query(sql, user_name)
+    result.map { |tuple| tuple_to_list_hash(tuple) }.first
+  end
+
   private
 
   def tuple_to_list_hash(tuple)
     {
       id: tuple['id'].to_i,
       first_name: tuple['first_name'],
-      last_name: tuple['last_name'],
-      phone_number: tuple['phone_number'],
-      email: tuple['email'],
-      sent: tuple['sent']
+      user_name: tuple['user_name'],
+      password: tuple['password']
     }
   end
 end

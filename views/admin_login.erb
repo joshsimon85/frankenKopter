@@ -1,0 +1,17 @@
+<header>
+  <img src="../images/logo.png" id="logo" alt="FrankenKopter Logo">
+</header>
+<main>
+  <form class="admin-login" action="/login/authenticate" method="post">
+    <dl>
+      <dt><label for="user_name">User Name</label></dt>
+      <dd>
+        <input type="text" name="user_name" id="user_name"
+               value="<%= session[:user_name] %>">
+      </dd>
+      <dt><label for="password">Password</label></dt>
+      <dd><input type="password" name="password" id="password"></dd>
+    </dl>
+    <input type="submit" name="submit" value="Submit">
+  </form>
+</main>
