@@ -19,7 +19,7 @@ configure(:development) do
   also_reload 'database_persistence.rb'
 end
 
-register do #####
+register do
   def auth(type)
     condition do
       redirect '/login' unless send("is_#{type}?")
@@ -29,7 +29,7 @@ end
 
 before do
   @storage = DatabasePersistence.new(logger)
-  @admin = session[:admin] #####
+  @admin = session[:admin]
 end
 
 after do
@@ -37,7 +37,7 @@ after do
 end
 
 helpers do
-  def is_admin?#######
+  def is_admin?
     @admin != nil
   end
 
@@ -165,7 +165,7 @@ get '/about' do
   erb :about, layout: :layout
 end
 
-get '/admin', :auth => :admin do ####
+get '/admin', :auth => :admin do
   @title = 'FrankenKopter | Admin'
 
   erb :admin, layout: :layout
@@ -195,4 +195,34 @@ get '/logout' do
   session[:admin] = nil
 
   redirect '/'
+end
+
+get '/testimonial' do
+  @title = 'FrankenKopter | Testimonial'
+
+  erb :testimonial, layout: :layout
+end
+
+post '/testimonial/new' do
+  data_hash = {
+    first_name: params[:first_name],
+    email: params[:email],
+    message: params[:message]
+  }
+
+  invalid_data = validate(data_hash)
+
+  if !invalid_data
+    @storage.add_testimonial(data_hash)
+    session.clear
+    session[:success] = 'Your testimonial has been successfully sent'
+
+    redirect '/'
+  else
+    data_hash.each_key do |key|
+      session[key] = data_hash[key]
+    end
+
+    redirect '/testimonial'
+  end
 end

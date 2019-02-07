@@ -48,6 +48,19 @@ class DatabasePersistence
     result.map { |tuple| tuple_to_list_hash(tuple) }.first
   end
 
+  def add_testimonial(data)
+    first_name = data[:first_name]
+    email = data[:email]
+    message = data[:message]
+
+    sql = <<~SQL
+      INSERT INTO testimonials (first_name, email, message)
+         VALUES ($1, $2, $3);
+    SQL
+
+    query(sql, first_name, email, message)
+  end
+
   private
 
   def tuple_to_list_hash(tuple)

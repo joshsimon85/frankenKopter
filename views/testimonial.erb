@@ -1,0 +1,44 @@
+<header>
+  <div class="container">
+    <img src="../images/logo.png" id="logo" alt="FrankenKopter Logo">
+  </div>
+  <nav>
+    <ul>
+      <li><a data-id="home" href="/">Home</a></li>
+      <li><a data-id="about" href="/about">About</a></li>
+      <li><a data-id="contact" href="/contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <h1>Create A Testimonial</h1>
+  <form class="testimonial" action="/testimonial/new" method="post">
+    <dl>
+      <dt><label for="first_name">First Name</label></dt>
+      <dd>
+        <input type="text" id="first_name" name="first_name"
+               placeholder="First name"
+               value="<%= session.delete(:first_name) %>"
+      </dd>
+      <dd class="invalid_first">Please provide a first name</dd>
+      <dd class="session_invalid_first"><%= session.delete(:first_name_error) %></dd>
+    </dl>
+    <dl>
+      <dt><label for="email">Email</label></dt>
+      <dd>
+        <input type="email" id="email" name="email"
+               placeholder="example@domain.com"
+               value="<%= session.delete(:email) %>">
+      </dd>
+      <dd class="invalid_text">Please provide a valid email</dd>
+      <dd class="session_invalid"><%= session.delete(:email_error) %></dd>
+    </dl>
+    <dl>
+      <dt><label for="message">Message</label></dt>
+      <dd><textarea name="message" rows="8" cols="80" id="message" placeholder="Testimonial" value="<% session.delete(:message) %>"></textarea></dd>
+      <dd class="invalid_text">Please provide a message</dd>
+      <dd class="session_invalid"><%= session.delete(:message_error) %></dd>
+    </dl>
+    <input type="submit" name="submit" value="Submit">
+  </form>
+</main>

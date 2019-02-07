@@ -131,7 +131,6 @@ figure + h1 {
 }
 
 .home {
-  /*background: #E6E604;*/
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
@@ -167,7 +166,7 @@ figure + h1 {
 /* Contact Page */
 .contact {
   background: #ffffff;
-  border: 1px solid #CECECE;
+  border: 1px solid #cecece;
   border-radius: 4px;
   display: block;
   margin: 0 auto 100px auto;
@@ -175,7 +174,7 @@ figure + h1 {
   width: 70%;
 }
 
-.contact dt {
+.contact dt, .testimonial dt {
   font-size: 20px;
   margin-bottom: 10px;
 }
@@ -193,7 +192,7 @@ figure + h1 {
   margin-right: 10px;
 }
 
-.contact dd input {
+.contact dd input, .testimonial dd input {
   border-radius: 4px;
   border: 1px solid #cecece;
   height: 35px;
@@ -204,12 +203,12 @@ figure + h1 {
   margin: 20px 20px 20px 0;
 }
 
-.contact input {
+.contact input, .testimonial input {
   font-size: 18px;
   margin-bottom: 10px;
 }
 
-.contact [type="submit"] {
+.contact [type="submit"], .testimonial [type="submit"] {
   border-radius: 5px;
   background-color: #8DCF0E;
   color: #FFF;
@@ -217,19 +216,19 @@ figure + h1 {
   width: 100px;
 }
 
-.contact p {
+.contact p, .testimonial p {
   margin-top: 20px;
 }
 
-.contact .invalid {
+.contact .invalid, .testimonial .invalid {
   border: 1px solid red;
 }
 
-.contact input:focus {
+.contact input:focus, .testimonial input:focus {
   border: 1px solid #8DCF0E;
 }
 
-.contact textarea:focus {
+.contact textarea:focus, .testimonial textarea:focus {
   border: 1px solid #8DCF0E;
 }
 
@@ -267,6 +266,24 @@ figure + h1 {
   width: 100%;
 }
 
+/* Admin Page */
+.nav-admin {
+  margin-right: 20px;
+  text-align: right;
+}
+
+/* Testimonial Page */
+.testimonial {
+  border: 1px solid #cecece;
+  border-radius: 4px;
+  margin: 50px auto;
+  padding: 20px;
+  width: 75%;
+}
+
+.testimonial dl + input {
+  margin-top: 20px;
+}
 /* Responsive */
 @media screen and (max-width: 900px) {
   #logo {
@@ -294,12 +311,6 @@ figure + h1 {
   }
 }
 
-/* Admin Page */
-.nav-admin {
-  margin-right: 20px;
-  text-align: right;
-}
-
 @media screen and (max-width: 670px) {
   main > figure {
     margin: 20px 0;
@@ -310,6 +321,10 @@ figure + h1 {
   }
 
   .contact {
+    width: 100%;
+  }
+
+  .testimonial {
     width: 100%;
   }
 }

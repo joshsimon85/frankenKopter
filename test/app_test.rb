@@ -147,4 +147,32 @@ class FrankenKopterTest < MiniTest::Test
     get last_response['Location']
     assert_includes last_response.body, '<form class="admin-login"'
   end
+
+  def test_get_testimonial
+    get '/testimonial'
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, '<title>FrankenKopter | Testimonial'
+    assert_includes last_response.body, '<form class="testimonial"'
+  end
+
+  def test_invalid_testimonial
+    post '/testimonial/new', first_name: '', email: '', message: ''
+
+    assert_equal 302, last_response.status
+    get last_response['Location']
+    assert_includes last_response.body, '<form class="testimonial"'
+    assert_includes last_response.body, 'Please provide a valid first name'
+    assert_includes last_response.body, 'Please provide a valid email'
+    assert_includes last_response.body, 'Please provide a valid message'
+  end
+
+  def test_valid_testimonial
+    post '/testimonial/new', first_name: 'admin', email: 'test@test.com',
+                             message: 'lorem ipsum'
+
+    assert_equal 302, last_response.status
+    get last_response['Location']
+    assert_includes last_response.body, '<li><a class="active" data-id="home"'
+  end
 end
