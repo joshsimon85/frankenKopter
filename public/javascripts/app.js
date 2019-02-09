@@ -103,6 +103,9 @@ $(function() {
       $('body').on('focusout', 'input', this.validateInput.bind(this));
       $('body').on('focusout', 'textarea', this.validateInput.bind(this));
     },
+    disableSubmit: function() {
+      $('input[type="submit"]').attr('disabled', true);
+    },
     init: function() {
       this.bindEvents();
     },

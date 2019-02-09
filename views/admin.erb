@@ -8,6 +8,33 @@
     </ul>
   </nav>
 </header>
-<main>
-  <!-- list all testimonials and actions -->
+<main class="testimonials">
+  <% @testimonials.each do |testimonial| %>
+
+        <%= testimonial[:first_name] %>
+
+        <%= testimonial[:email] %>
+
+        <%= testimonial[:submitted] %>
+
+
+        <%= testimonial[:published] %>
+
+        <%= testimonial[:body] %>
+
+          <form action="testimonial/update/:id" method="post"> <!-- add in id -->
+            <input type="submit" name="update" value="Update">
+          </form>
+
+
+          <form action="testimonial/pusblish/:id" method="post">
+            <input type="submit" name="publish" value="Publish">
+          </form>
+
+          <form action="testimonial/delete/:id" method="post">
+            <input type="submit" name="delete" value="Delete">
+          </form>
+
+
+  <% end %>
 </main>

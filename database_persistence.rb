@@ -51,17 +51,35 @@ class DatabasePersistence
   def add_testimonial(data)
     first_name = data[:first_name]
     email = data[:email]
-    message = data[:message]
+    body = data[:message]
 
     sql = <<~SQL
-      INSERT INTO testimonials (first_name, email, message)
+      INSERT INTO testimonials (first_name, email, body)
          VALUES ($1, $2, $3);
     SQL
 
-    query(sql, first_name, email, message)
+    query(sql, first_name, email, body)
+  end
+
+  def testimonials
+    results = query('SELECT * FROM testimonials')
+
+    results.map { |tuple| tuple_to_testimonial_hash(tuple) }
   end
 
   private
+
+  def convert_to_string(bool)
+    if bool == 'f'
+      'false'
+    else
+      'true'
+    end
+  end
+
+  def convert_date(date)
+    date.split('.')[0].split(':')[0, 2].join(':')
+  end
 
   def tuple_to_list_hash(tuple)
     {
@@ -69,6 +87,17 @@ class DatabasePersistence
       first_name: tuple['first_name'],
       user_name: tuple['user_name'],
       password: tuple['password']
+    }
+  end
+
+  def tuple_to_testimonial_hash(tuple)
+    {
+      id: tuple['id'].to_i,
+      first_name: tuple['first_name'],
+      email: tuple['email'],
+      body: tuple['body'],
+      published: convert_to_string(tuple['published']),
+      submitted: convert_date(tuple['sent'])
     }
   end
 end

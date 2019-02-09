@@ -17,6 +17,7 @@ configure(:development) do
   require 'pry'
   also_reload 'stylesheets/css/master.css'
   also_reload 'database_persistence.rb'
+  also_reload('javascripts/app.js')
 end
 
 register do
@@ -167,14 +168,15 @@ end
 
 get '/admin', :auth => :admin do
   @title = 'FrankenKopter | Admin'
+  @testimonials = @storage.testimonials
 
-  erb :admin, layout: :layout
+  erb :admin, layout: :layout_admin
 end
 
 get '/login' do
   @title = 'FrakenKopter | Login'
 
-  erb :admin_login, layout: :layout
+  erb :admin_login, layout: :layout_admin
 end
 
 post '/login/authenticate' do

@@ -1,7 +1,5 @@
 @import url('whitespace-reset.css');
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
-/* Universal */
 * {
   box-sizing: border-box;
 }
@@ -112,148 +110,56 @@ nav a.active {
   border-bottom: 1px solid #8DCF0E;
 }
 
-/* Home Page */
-main > figure {
-  display: block;
-  margin: 20px 50px 0 50px;
-  text-align: center;
-}
-
-main > figure > img {
-  display: inline-block;
-  width: 100%;
-}
-
-figure + h1 {
-  background: transparent;
-  color: #3467D7;
-  margin-top: 20px;
-}
-
-.home {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.highlights {
-  background-color: transparent;
-  color: #3467D7;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.highlights li {
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-/* About Page */
-.about {
-  background: #ffffff;
-  border-radius: 4px;
-  margin: 0 auto 50px auto;
-  padding: 10px;
-  width: 80%;
-}
-
-.about p {
-  font-size: 18px;
-  line-height: 30px;
-  text-indent: 20px;
-  margin-bottom: 10px;
-}
-
-/* Contact Page */
-.contact {
-  background: #ffffff;
+/* Admin Login */
+.admin-login {
   border: 1px solid #cecece;
   border-radius: 4px;
-  display: block;
-  margin: 0 auto 100px auto;
-  padding: 0 0 20px 20px;
-  width: 70%;
+  margin: 150px auto 0 auto;
+  width: 325px;
 }
 
-.contact dt, .testimonial dt {
+.admin-login dl {
+  margin: 20px 10px;
+}
+
+.admin-login dt {
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-.contact span {
-  font-size: 14px;
-  vertical-align: top;
-}
-
-.names {
-  display: inline-block;
-}
-
-.names:first-of-type {
-  margin-right: 10px;
-}
-
-.contact dd input, .testimonial dd input {
-  border-radius: 4px;
-  border: 1px solid #cecece;
-  height: 35px;
-  width: 200px;
-}
-
-.contact dl {
-  margin: 20px 20px 20px 0;
-}
-
-.contact input, .testimonial input {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.contact [type="submit"], .testimonial [type="submit"] {
-  border-radius: 5px;
-  background-color: #8DCF0E;
-  color: #FFF;
+.admin-login dd > input {
   height: 40px;
-  width: 100px;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
-.contact p, .testimonial p {
-  margin-top: 20px;
+/* Admin Main */
+.nav-admin {
+  margin-right: 20px;
+  text-align: right;
 }
 
-.contact .invalid, .testimonial .invalid {
-  border: 1px solid red;
-}
-
-.contact input:focus, .testimonial input:focus {
-  border: 1px solid #8DCF0E;
-}
-
-.contact textarea:focus, .testimonial textarea:focus {
-  border: 1px solid #8DCF0E;
-}
-
-.invalid_text, .invalid_first, .invalid_last {
-  background-color: transparent;
-  display: none;
-  color: red;
-}
-
-.session_invalid, .session_invalid_first, .session_invalid_last {
-  background-color: transparent;
-  color: red;
-}
-
-/* Testimonial Page */
 .testimonial {
   border: 1px solid #cecece;
   border-radius: 4px;
-  margin: 50px auto;
-  padding: 20px;
-  width: 75%;
+  margin: 0 auto 30px auto;
+  padding: 10px;
+  width: 65%;
 }
 
-.testimonial dl + input {
-  margin-top: 20px;
+.testimonials {
+  margin-top: 100px;
+}
+
+.testimonials dt {
+  font-size: 19px;
+  margin-bottom: 10px;
+  margin-right: 100px;
+}
+
+.testimonials .inline {
+  display: inline-block;
+  margin-bottom: 20px;
 }
 
 /* Responsive */
