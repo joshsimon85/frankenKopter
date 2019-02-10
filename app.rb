@@ -17,7 +17,6 @@ configure(:development) do
   require 'pry'
   also_reload 'stylesheets/css/master.css'
   also_reload 'database_persistence.rb'
-  also_reload('javascripts/app.js')
 end
 
 register do

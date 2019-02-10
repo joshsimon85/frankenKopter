@@ -116,7 +116,7 @@ nav a.active {
 }
 
 .admin-login dl {
-  margin: 20px 10px;
+  margin: 20px 10px 0 10px;
 }
 
 .admin-login dt {
@@ -125,11 +125,19 @@ nav a.active {
 }
 
 .admin-login dd > input {
-  height: 40px;
+  font-size: 16px;
+  padding: 12px 0;
   margin-bottom: 10px;
   width: 100%;
 }
 
+.admin-login > input {
+  border: 1px solid #cecece;
+  border-radius: 4px;
+  font-size: 14px;
+  margin: 5px 0 10px 10px;;
+  padding: 10px 15px;
+}
 /* Admin Main */
 .nav-admin {
   margin-right: 20px;
