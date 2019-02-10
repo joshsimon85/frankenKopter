@@ -202,12 +202,13 @@ end
 get '/testimonial' do
   @title = 'FrankenKopter | Testimonial'
 
-  erb :testimonial, layout: :layout
+  erb :testimonial, layout: :layout_testimonial
 end
 
 post '/testimonial/new' do
   data_hash = {
     first_name: params[:first_name],
+    last_name: params[:last_name],
     email: params[:email],
     message: params[:message]
   }

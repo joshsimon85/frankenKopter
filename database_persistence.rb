@@ -50,15 +50,16 @@ class DatabasePersistence
 
   def add_testimonial(data)
     first_name = data[:first_name]
+    last_name = data[:last_name]
     email = data[:email]
     body = data[:message]
 
     sql = <<~SQL
-      INSERT INTO testimonials (first_name, email, body)
-         VALUES ($1, $2, $3);
+      INSERT INTO testimonials (first_name, last_name, email, body)
+         VALUES ($1, $2, $3, $4);
     SQL
 
-    query(sql, first_name, email, body)
+    query(sql, first_name, last_name, email, body)
   end
 
   def testimonials
@@ -85,6 +86,7 @@ class DatabasePersistence
     {
       id: tuple['id'].to_i,
       first_name: tuple['first_name'],
+      last_name: tuple['last_name'],
       user_name: tuple['user_name'],
       password: tuple['password']
     }
@@ -94,6 +96,7 @@ class DatabasePersistence
     {
       id: tuple['id'].to_i,
       first_name: tuple['first_name'],
+      last_name: tuple['last_name'],
       email: tuple['email'],
       body: tuple['body'],
       published: convert_to_string(tuple['published']),

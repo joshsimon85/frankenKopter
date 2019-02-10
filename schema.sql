@@ -22,6 +22,7 @@ CREATE TABLE emails (
  CREATE TABLE testimonials (
    id SERIAL PRIMARY KEY,
    first_name varchar(50) NOT NULL,
+   last_name varchar(50) NOT NULL,
    email text,
    body text NOT NUll,
    published boolean DEFAULT FALSE,

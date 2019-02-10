@@ -14,14 +14,23 @@
   <h1>Create A Testimonial</h1>
   <form class="testimonial" action="/testimonial/new" method="post">
     <dl>
-      <dt><label for="first_name">First Name</label></dt>
-      <dd>
-        <input type="text" id="first_name" name="first_name"
+      <dt>
+        <label for="first_name">Tell Us Your Name</label>
+      </dt>
+      <dd class="names">
+        <input type="text" name="first_name" id="first_name"
                placeholder="First name"
-               value="<%= session.delete(:first_name) %>"
+               value="<%= session.delete(:first_name) %>">
+      </dd>
+      <dd class="names">
+        <input type="text" name="last_name"
+               placeholder="Last name"
+               value="<%= session.delete(:last_name) %>">
       </dd>
       <dd class="invalid_first">Please provide a first name</dd>
       <dd class="session_invalid_first"><%= session.delete(:first_name_error) %></dd>
+      <dd class="invalid_last">Please provide a last name</dd>
+      <dd class="session_invalid_last"><%= session.delete(:last_name_error) %></dd>
     </dl>
     <dl>
       <dt><label for="email">Email</label></dt>
@@ -34,8 +43,8 @@
       <dd class="session_invalid"><%= session.delete(:email_error) %></dd>
     </dl>
     <dl>
-      <dt><label for="message">Message</label></dt>
-      <dd><textarea name="message" rows="8" cols="80" id="message" placeholder="Testimonial" value="<% session.delete(:message) %>"></textarea></dd>
+      <dt><label for="editor">Message</label></dt>
+      <dd><textarea name="message" rows="8" cols="80" id="editor" placeholder="Testimonial"><%= session.delete(:message) %></textarea></dd>
       <dd class="invalid_text">Please provide a message</dd>
       <dd class="session_invalid"><%= session.delete(:message_error) %></dd>
     </dl>

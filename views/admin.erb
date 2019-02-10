@@ -9,32 +9,63 @@
   </nav>
 </header>
 <main class="testimonials">
+  <h1>Testimonials</h1>
   <% @testimonials.each do |testimonial| %>
-
-        <%= testimonial[:first_name] %>
-
-        <%= testimonial[:email] %>
-
-        <%= testimonial[:submitted] %>
-
-
-        <%= testimonial[:published] %>
-
-        <%= testimonial[:body] %>
-
-          <form action="testimonial/update/:id" method="post"> <!-- add in id -->
-            <input type="submit" name="update" value="Update">
-          </form>
-
-
-          <form action="testimonial/pusblish/:id" method="post">
-            <input type="submit" name="publish" value="Publish">
-          </form>
-
-          <form action="testimonial/delete/:id" method="post">
-            <input type="submit" name="delete" value="Delete">
-          </form>
-
-
+    <section class="testimonial">
+      <dl>
+        <dt>First Name</dt>
+        <dd><%= testimonial[:first_name].capitalize %></dd>
+      </dl>
+      <dl>
+        <dt>Last Name</dt>
+        <dd><%= testimonial[:last_name].capitalize %></dd>
+      </dl>
+      <dl>
+        <dt>Email Address</dt>
+        <dd><%= testimonial[:email] %></dd>
+      </dl>
+      <dl>
+        <dt>Submitted</dt>
+        <dd>  <%= testimonial[:submitted] %></dd>
+      </dl>
+      <dl>
+        <dt>Published</dt>
+        <dd class="published"><%= testimonial[:published] %></dd>
+      </dl>
+      <button type="button" name="view">View Message</button>
+    </section>
+    <div class="overlay"></div>
+    <form class="overlay-form" action="tesimonials/<%= testimonial[:id] %>" method="post">
+      <button class="exit" type="button" name="exit"></button>
+      <dl class="third">
+        <dt>First Name</dt>
+        <dd><%= testimonial[:first_name].capitalize %></dd>
+      </dl>
+      <dl class="third">
+        <dt>Last Name</dt>
+        <dd><%= testimonial[:last_name].capitalize %></dd>
+      </dl>
+      <dl class="third">
+        <dt>Email Address</dt>
+        <dd><%= testimonial[:email] %></dd>
+      </dl>
+      <dl>
+        <dt>Submitted</dt>
+        <dd>  <%= testimonial[:submitted] %></dd>
+      </dl>
+      <dl>
+        <dt>Published</dt>
+        <dd class="published"><%= testimonial[:published] %></dd>
+      </dl>
+      <dl>
+        <dt class="centered">Testimonial</dt>
+        <dd><%= testimonial[:body] %></dd>
+      </dl>
+      <div class="actions">
+        <input class="update" type="submit" name="update" value="Update">
+        <input class="publish" type="submit" name="publish" value="Publish">
+        <input class="delete" type="submit" name="delete" value="Delete">
+      </div>
+    </form>
   <% end %>
 </main>

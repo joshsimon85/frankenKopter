@@ -1,7 +1,12 @@
 @import url('whitespace-reset.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  position: relative;
 }
 
 body {
@@ -14,10 +19,6 @@ h1 {
   margin-bottom: 20px;
   margin-top: 40px;
   text-align: center;
-}
-
-.tag-line {
-  margin-top: 20px;
 }
 
 input {
@@ -97,10 +98,6 @@ nav a {
   text-transform: uppercase;
 }
 
-nav li:last-of-type a {
-  margin-right: 0;
-}
-
 nav a:hover {
   background: transparent;
   color: #4d7107;
@@ -142,24 +139,122 @@ nav a.active {
 .testimonial {
   border: 1px solid #cecece;
   border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
   margin: 0 auto 30px auto;
   padding: 10px;
-  width: 65%;
+  width: 70%;
 }
 
 .testimonials {
   margin-top: 100px;
 }
 
-.testimonials dt {
+.testimonial dt {
   font-size: 19px;
   margin-bottom: 10px;
-  margin-right: 100px;
 }
 
-.testimonials .inline {
+.testimonial dl {
   display: inline-block;
-  margin-bottom: 20px;
+}
+
+/* Overlay and Form */
+.overlay-form {
+  background: #fff;
+  border-radius: 4px;
+  display: none;
+  left: 25%;
+  padding: 10px;
+  position: absolute;
+  width: 50%;
+  z-index: 2;
+}
+
+form dl {
+  margin-bottom: 15px;
+}
+
+form dt {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+form dd {
+  font-size: 16px;
+}
+
+.third {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.overlay {
+  background: rgba(0,0,0,0.5);
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.centered {
+  text-align: center;
+}
+
+button {
+  background: #8dcf0e;
+  border-radius: 10px;
+  color: #4d7107;
+  cursor: pointer;
+  font-size: 14px;
+  height: 50px;
+}
+
+button:hover {
+  background: #4d7107;
+  color: #fff;
+}
+
+button:focus {
+  outline: none;
+}
+
+.exit, .exit:hover {
+  background: url('/images/exit_icon.png') 50% no-repeat;
+  background-position: center center;
+  border: none;
+  border-radius: 0;
+  height: 25px;
+  float: right;
+  width: 25px;
+}
+
+.actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.delete, .publish, .update {
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  margin-right: 10px;
+  padding: 15px;
+}
+
+.overlay-form .delete {
+  background: red;
+}
+
+.overlay-form .publish {
+  background: #8dcf0e;
+}
+
+.overlay-form .update {
+  background: #cecece;
 }
 
 /* Responsive */
