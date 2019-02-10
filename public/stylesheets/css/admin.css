@@ -132,6 +132,7 @@ nav a.active {
 }
 
 .admin-login > input {
+  background: transparent;
   border: 1px solid #cecece;
   border-radius: 4px;
   font-size: 14px;

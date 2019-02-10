@@ -256,6 +256,11 @@ figure + h1 {
   margin-top: 20px;
 }
 
+#editor {
+  font-size: 16px;
+  height: 250px;
+}
+
 /* Responsive */
 @media screen and (max-width: 900px) {
   #logo {

@@ -26,7 +26,7 @@
       </dl>
       <dl>
         <dt>Submitted</dt>
-        <dd>  <%= testimonial[:submitted] %></dd>
+        <dd><%= testimonial[:submitted] %></dd>
       </dl>
       <dl>
         <dt>Published</dt>
@@ -51,7 +51,7 @@
       </dl>
       <dl>
         <dt>Submitted</dt>
-        <dd>  <%= testimonial[:submitted] %></dd>
+        <dd><%= testimonial[:submitted] %></dd>
       </dl>
       <dl>
         <dt>Published</dt>
@@ -62,9 +62,9 @@
         <dd><%= testimonial[:body] %></dd>
       </dl>
       <div class="actions">
-        <input class="update" type="submit" name="update" value="Update">
-        <input class="publish" type="submit" name="publish" value="Publish">
-        <input class="delete" type="submit" name="delete" value="Delete">
+        <input class="update" type="submit" name="update" value="Update" formaction="/testimonials/update/<%= testimonial[:id] %>">
+        <input class="publish" type="submit" name="publish" value="Publish" formaction="/testimonials/publish/<%= testimonial[:id] %>">
+        <input class="delete" type="submit" name="delete" value="Delete" formaction="/testimonials/destroy/<%= testimonial[:id] %>">
       </div>
     </form>
   <% end %>
