@@ -17,9 +17,20 @@ $(function() {
       $form.hide();
       $overlay.hide();
     },
+    handleDelete: function(e) {
+      var $testimonial = $(e.target).closest('.testimonial');
+      $testimonial.find('.popup-overlay').show();
+      $testimonial.find('.popup').show();
+    },
+    handleCancel: function(e) {
+      $(e.target).closest('.testimonial').find('.popup-overlay').hide();
+      $(e.target).closest('.testimonail').find('.popup').hide();
+    },
     bindEvents: function() {
       $('.testimonial').on('click', 'button', this.handleView.bind(this));
       $('.exit').on('click', this.handleExit.bind(this));
+      $('.delete').on('click', this.handleDelete.bind(this));
+      $('.popup').on('click', this.handleCancel.bind(this));
     },
     setPublishedColor: function() {
       $('.published').each(function(_, dd) {

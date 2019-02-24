@@ -250,5 +250,5 @@ post '/testimonials/publish/:id', :auth => :admin do
 end
 
 post '/testimonials/destroy/:id', :auth => :admin do
-  'nothing to show'
+  'delete me'
 end

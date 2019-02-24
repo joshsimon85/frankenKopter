@@ -69,5 +69,16 @@
         <button class="delete" type="button" name="Delete">Delete</button>
       </div>
     </form>
+    <div class="popup-overlay"></div>
+    <div class="popup">
+      <p>Are you sure you want to delete this testimonial?</p>
+      <p>This action can't be undone!</p>
+      <form action="/testimonials/destroy/<%= testimonial[:id] %>" method="post">
+        <fieldset>
+          <input class="delete" type="submit" name="delete" value="Delete">
+          <button class="cancel" type="button" name="cancel">Cancel</button>
+        </fieldset>
+      </form>
+    </div>
   <% end %>
 </main>

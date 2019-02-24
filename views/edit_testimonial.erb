@@ -37,11 +37,11 @@
     </dl>
     <div class="actions">
       <input class="edit" type="submit" name="edit" value="Update">
+      <a class="revert" href="/testimonials/edit/<%= @testimonial[:id] %>">Revert</a>
       <% if @testimonial[:published] == 'false' %>
         <input class="publish" type="submit" name="publish" value="Publish"
                formaction="/testimonials/publish/<%= @testimonial[:id] %>">
       <% end %>
-      <a class="revert" href="/testimonials/edit/<%= @testimonial[:id] %>">Revert</a>
       <a class="cancel" href="/admin">Cancel</a>
       <input class="delete" type="submit" name="delete" value="Delete"
              formaction="/testimonials/destroy/<%= @testimonial[:id] %>">
