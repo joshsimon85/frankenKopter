@@ -322,12 +322,11 @@ input.edit:hover {
   background-color: #fff;
   border-radius: 4px;
   display: none;
-  left: 5px;
+  left: 30%;
   padding-top: 20px;
   position: absolute;
-  right: 5px;
-  top: 20px;
   z-index: 4;
+  width: 40%;
 }
 
 .popup p {

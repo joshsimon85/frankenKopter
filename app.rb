@@ -250,5 +250,8 @@ post '/testimonials/publish/:id', :auth => :admin do
 end
 
 post '/testimonials/destroy/:id', :auth => :admin do
-  'delete me'
+  @storage.delete_testimonial(params[:id])
+  session[:success] = 'Your testimonial has been deleted'
+
+  redirect '/admin'
 end

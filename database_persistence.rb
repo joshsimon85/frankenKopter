@@ -86,7 +86,13 @@ class DatabasePersistence
 
     query(sql, id)
   end
-  
+
+  def delete_testimonial(id)
+    sql = 'DELETE FROM testimonials WHERE id = $1'
+
+    query(sql, id)
+  end
+
   private
 
   def convert_to_string(bool)
