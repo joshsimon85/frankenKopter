@@ -228,3 +228,27 @@ post '/testimonial/new' do
     redirect '/testimonial'
   end
 end
+
+get '/testimonials/edit/:id', :auth => :admin do
+  @testimonial = @storage.fetch_testimonial(params[:id].to_i)[0]
+
+  erb :edit_testimonial, layout: :layout_admin
+end
+
+post '/testimonials/edit/:id', :auth => :admin do
+  @storage.update_testimonial(params[:id], params[:message])
+  session[:success] = 'Your testimonial has been updated!'
+
+  redirect '/admin'
+end
+
+post '/testimonials/publish/:id', :auth => :admin do
+  @storage.publish_testimonial(params[:id])
+  session[:success] = 'Your testimonial has been published'
+
+  redirect '/admin'
+end
+
+post '/testimonials/destroy/:id', :auth => :admin do
+  'nothing to show'
+end

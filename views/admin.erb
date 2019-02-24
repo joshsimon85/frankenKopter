@@ -35,7 +35,7 @@
       <button type="button" name="view">View Message</button>
     </section>
     <div class="overlay"></div>
-    <form class="overlay-form" action="tesimonials/<%= testimonial[:id] %>" method="post">
+    <form class="overlay-form" action="testimonials/publish/<%= testimonial[:id] %>" method="post">
       <button class="exit" type="button" name="exit"></button>
       <dl class="third">
         <dt>First Name</dt>
@@ -62,9 +62,11 @@
         <dd><%= testimonial[:body] %></dd>
       </dl>
       <div class="actions">
-        <input class="update" type="submit" name="update" value="Update" formaction="/testimonials/update/<%= testimonial[:id] %>">
-        <input class="publish" type="submit" name="publish" value="Publish" formaction="/testimonials/publish/<%= testimonial[:id] %>">
-        <input class="delete" type="submit" name="delete" value="Delete" formaction="/testimonials/destroy/<%= testimonial[:id] %>">
+        <a class="edit" href="/testimonials/edit/<%= testimonial[:id] %>">Edit</a>
+        <% if  testimonial[:published] == 'false' %>
+          <input class="publish" type="submit" name="publish" value="Publish">
+        <% end %>
+        <button class="delete" type="button" name="Delete">Delete</button>
       </div>
     </form>
   <% end %>

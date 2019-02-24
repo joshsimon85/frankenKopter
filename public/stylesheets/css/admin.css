@@ -1,12 +1,9 @@
 @import url('whitespace-reset.css');
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
+/* Universal */
 * {
   box-sizing: border-box;
-}
-
-html {
-  position: relative;
 }
 
 body {
@@ -33,8 +30,8 @@ textarea {
   border: 1px solid #CECECE;
   border-radius: 4px;
   font-size: 18px;
+  padding: 5px;
   resize: none;
-  text-indent: 5px;
   width: 100%;
 }
 
@@ -43,6 +40,50 @@ textarea:focus {
   box-shadow: none;
 }
 
+.actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.actions a {
+  text-decoration: none;
+}
+
+input.edit, .delete, .publish, .actions a {
+  border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 10px;
+  padding: 15px 0;
+  cursor: pointer;
+  text-indent: 0;
+  width: 75px;
+}
+
+.delete {
+  background: #ff0000;
+}
+
+.publish {
+  background: #8dcf0e;
+}
+
+input.edit {
+  background: #8dcf0e;
+}
+
+.publish:hover {
+  background: #4d7107;
+}
+
+a {
+  background: #245dd7;
+}
+
+.cancel {
+  background-color: #9e9e9e;
+}
 /* Flash Message */
 .flash-message {
   font-size: 16px;
@@ -156,7 +197,7 @@ nav a.active {
 }
 
 .testimonials {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .testimonial dt {
@@ -231,6 +272,26 @@ button:focus {
   outline: none;
 }
 
+.delete:hover {
+  background: #9a0000;
+}
+
+.edit:hover {
+  background: #1a4298;
+}
+
+input.edit:hover {
+  background: #4d7107;
+}
+
+.revert:hover {
+  background: #1a4298;
+}
+
+.cancel:hover {
+  background: #656565;
+}
+
 .exit, .exit:hover {
   background: url('/images/exit_icon.png') 50% no-repeat;
   background-position: center center;
@@ -241,29 +302,13 @@ button:focus {
   width: 25px;
 }
 
-.actions {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.delete, .publish, .update {
+/* Edit Testimonial */
+.single-testimonial {
+  border: 1px solid #cecece;
   border-radius: 4px;
-  color: #fff;
-  font-size: 14px;
-  margin-right: 10px;
-  padding: 15px;
-}
-
-.overlay-form .delete {
-  background: red;
-}
-
-.overlay-form .publish {
-  background: #8dcf0e;
-}
-
-.overlay-form .update {
-  background: #cecece;
+  margin: 100px auto;
+  padding: 10px;
+  width: 90%;
 }
 
 /* Responsive */

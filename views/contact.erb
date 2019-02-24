@@ -61,7 +61,7 @@
         <label for="message">Message <span>*</span></label>
       </dt>
       <dd>
-        <textarea name="message" placeholder="Write us a message" id="message" rows="8" cols="98"></textarea>
+        <textarea name="message" placeholder="Write us a message" id="message" rows="8" cols="98"><%= session.delete(:message) %></textarea>
       </dd>
       <dd class="invalid_text">Please provide a message</dd>
       <dd class="session_invalid"><%= session.delete(:message_error) %></dd>

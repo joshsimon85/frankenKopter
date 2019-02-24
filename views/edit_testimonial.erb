@@ -1,0 +1,50 @@
+<header>
+  <div class="container">
+      <img src="../../images/logo.png" id="logo" alt="FrankenKopter Logo">
+  </div>
+  <nav class="nav-admin">
+    <ul>
+      <li><a href="/logout">Log Out</a></li>
+    </ul>
+  </nav>
+</header>
+<main class="single-testimonial">
+  <form action="/testimonials/edit/<%= @testimonial[:id] %>" method="post">
+    <a class="exit" href="/admin"></a>
+    <dl class="third">
+      <dt>First Name</dt>
+      <dd><%= @testimonial[:first_name].capitalize %></dd>
+    </dl>
+    <dl class="third">
+      <dt>Last Name</dt>
+      <dd><%= @testimonial[:last_name].capitalize %></dd>
+    </dl>
+    <dl class="third">
+      <dt>Email Address</dt>
+      <dd><%= @testimonial[:email] %></dd>
+    </dl>
+    <dl>
+      <dt>Submitted</dt>
+      <dd><%= @testimonial[:submitted] %></dd>
+    </dl>
+    <dl>
+      <dt>Published</dt>
+      <dd class="published"><%= @testimonial[:published] %></dd>
+    </dl>
+    <dl>
+      <dt class="centered">Testimonial</dt>
+      <dd><textarea name="message" rows="8" cols="80"><%= @testimonial[:body] %></textarea></dd>
+    </dl>
+    <div class="actions">
+      <input class="edit" type="submit" name="edit" value="Update">
+      <% if @testimonial[:published] == 'false' %>
+        <input class="publish" type="submit" name="publish" value="Publish"
+               formaction="/testimonials/publish/<%= @testimonial[:id] %>">
+      <% end %>
+      <a class="revert" href="/testimonials/edit/<%= @testimonial[:id] %>">Revert</a>
+      <a class="cancel" href="/admin">Cancel</a>
+      <input class="delete" type="submit" name="delete" value="Delete"
+             formaction="/testimonials/destroy/<%= @testimonial[:id] %>">
+    </div>
+  </form>
+</main>

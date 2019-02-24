@@ -68,6 +68,25 @@ class DatabasePersistence
     results.map { |tuple| tuple_to_testimonial_hash(tuple) }
   end
 
+  def fetch_testimonial(id)
+    sql = 'SELECT * FROM testimonials WHERE id = $1'
+
+    result = query(sql, id)
+    result.map { |tuple| tuple_to_testimonial_hash(tuple) }
+  end
+
+  def update_testimonial(id, message)
+    sql = 'UPDATE testimonials SET body = $2 WHERE id = $1'
+
+    query(sql, id, message)
+  end
+
+  def publish_testimonial(id)
+    sql = 'UPDATE testimonials SET published = true WHERE id = $1'
+
+    query(sql, id)
+  end
+  
   private
 
   def convert_to_string(bool)

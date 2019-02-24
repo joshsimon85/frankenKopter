@@ -73,13 +73,14 @@ $(function() {
     },
     handleMessageValidation: function($input, value) {
       var $message = $input.closest('dl').find('.invalid_text');
+
       $input.closest('dl').find('.session_invalid').hide();
 
       if (!(this.isValidMessage(value))) {
-        $input.css('border', '1px solid red');
+        $input.addClass('invalid');
         $message.show();
       } else {
-        $input.css('border', '1px solid #cecece');
+        $input.removeClass('invalid');
         $message.hide();
       }
     },
@@ -94,27 +95,16 @@ $(function() {
         this.handleEmailValidation($input, value);
       } else if (name === 'phone_number') {
         this.handlePhoneValidation($input, value);
+      } else if (name === 'message') {
+        this.handleMessageValidation($input, value);
       }
-    },
-    validateMessage: function(e) {
-      var text = $(e.target).text();
-      var $input = $(e.target);
-      var content = e.target.innerHTML;
-
-      this.handleMessageValidation($input, text);
-      $('[name="message"]').val(content);
-    },
-    styleEditor: function(e) {
-      $(e.target).css('border', '1px solid #8dcf0e');
     },
     bindEvents: function() {
       $('body').on('focusout', 'input', this.validateInput.bind(this));
-      $('body').on('focusout', '#editor', this.validateMessage.bind(this));
-      $('body').on('focusin', '#editor', this.styleEditor.bind(this));
+      $('body').on('focusout', 'textarea', this.validateInput.bind(this));
     },
     init: function() {
       this.bindEvents();
-      $('[name="message"]').hide();
     },
   };
 
