@@ -17,6 +17,15 @@ class FrankenKopterTest < MiniTest::Test
     Sinatra::Application
   end
 
+  def admin_session
+    { 'rack.session' => { admin: 'admin' } }
+  end
+
+  def create_testimonial
+    post '/testimonial/new', first_name: 'test', last_name: 'test',
+                             message: 'test'
+  end
+
   def test_home
     get '/'
 
@@ -169,11 +178,32 @@ class FrankenKopterTest < MiniTest::Test
   end
 
   def test_valid_testimonial
+    skip "need to figure out a way to delete after creating"
     post '/testimonial/new', first_name: 'admin', last_name: 'admin',
                              email: 'test@test.com', message: 'lorem ipsum'
 
     assert_equal 302, last_response.status
     get last_response['Location']
     assert_includes last_response.body, '<li><a class="active" data-id="home"'
+  end
+
+  def test_admin
+    get '/admin', {}, admin_session
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, '<h1>Testimonials</h1>'
+  end
+
+  def test_edit_route
+    get 'testimonials/edit/1', {}, admin_session
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, '<form action="/testimonials/edit/1"' +
+                                         ' method="post"'
+  end
+
+  def test_delete_route
+    skip 'need to find a way to find this ones id for deleting after creation maybe make the id not unique in testing so we can pass a value each time'
+    create_testimonial
   end
 end

@@ -9,42 +9,56 @@
   </nav>
 </header>
 <main class="single-testimonial">
-  <form action="/testimonials/edit/<%= @testimonial[:id] %>" method="post">
-    <a class="exit" href="/admin"></a>
-    <dl class="third">
-      <dt>First Name</dt>
-      <dd><%= @testimonial[:first_name].capitalize %></dd>
-    </dl>
-    <dl class="third">
-      <dt>Last Name</dt>
-      <dd><%= @testimonial[:last_name].capitalize %></dd>
-    </dl>
-    <dl class="third">
-      <dt>Email Address</dt>
-      <dd><%= @testimonial[:email] %></dd>
-    </dl>
-    <dl>
-      <dt>Submitted</dt>
-      <dd><%= @testimonial[:submitted] %></dd>
-    </dl>
-    <dl>
-      <dt>Published</dt>
-      <dd class="published"><%= @testimonial[:published] %></dd>
-    </dl>
-    <dl>
-      <dt class="centered">Testimonial</dt>
-      <dd><textarea name="message" rows="8" cols="80"><%= @testimonial[:body] %></textarea></dd>
-    </dl>
-    <div class="actions">
-      <input class="edit" type="submit" name="edit" value="Update">
-      <a class="revert" href="/testimonials/edit/<%= @testimonial[:id] %>">Revert</a>
-      <% if @testimonial[:published] == 'false' %>
-        <input class="publish" type="submit" name="publish" value="Publish"
-               formaction="/testimonials/publish/<%= @testimonial[:id] %>">
-      <% end %>
-      <a class="cancel" href="/admin">Cancel</a>
-      <input class="delete" type="submit" name="delete" value="Delete"
-             formaction="/testimonials/destroy/<%= @testimonial[:id] %>">
+  <section>
+    <form action="/testimonials/edit/<%= @testimonial[:id] %>" method="post">
+      <a class="exit" href="/admin"></a>
+      <dl class="third">
+        <dt>First Name</dt>
+        <dd><%= @testimonial[:first_name].capitalize %></dd>
+      </dl>
+      <dl class="third">
+        <dt>Last Name</dt>
+        <dd><%= @testimonial[:last_name].capitalize %></dd>
+      </dl>
+      <dl class="third">
+        <dt>Email Address</dt>
+        <dd><%= @testimonial[:email] %></dd>
+      </dl>
+      <dl>
+        <dt>Submitted</dt>
+        <dd><%= @testimonial[:submitted] %></dd>
+      </dl>
+      <dl>
+        <dt>Published</dt>
+        <dd class="published"><%= @testimonial[:published] %></dd>
+      </dl>
+      <dl>
+        <dt class="centered">Testimonial</dt>
+        <dd><textarea name="message" rows="8" cols="80"><%= @testimonial[:body] %></textarea></dd>
+      </dl>
+      <div class="actions">
+        <input class="edit" type="submit" name="edit" value="Update">
+        <a class="revert" href="/testimonials/edit/<%= @testimonial[:id] %>">Revert</a>
+        <% if @testimonial[:published] == 'false' %>
+          <input class="publish" type="submit" name="publish" value="Publish"
+                 formaction="/testimonials/publish/<%= @testimonial[:id] %>">
+        <% end %>
+        <a class="cancel" href="/admin">Cancel</a>
+        <button class="delete" type="button" name="button">Delete</button>
+      </div>
+    </form>
+  </section>
+  <section>
+    <div class="popup-overlay"></div>
+    <div class="popup">
+      <p>Are you sure you want to delete this testimonial?</p>
+      <p>This action can't be undone!</p>
+      <form action="/testimonials/destroy/<%= @testimonial[:id] %>" method="post">
+        <fieldset>
+          <input class="delete" type="submit" name="delete" value="Delete">
+          <button class="cancel" type="button" name="cancel">Cancel</button>
+        </fieldset>
+      </form>
     </div>
-  </form>
+  </section>
 </main>
