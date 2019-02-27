@@ -1,0 +1,91 @@
+<header>
+  <div class="container">
+      <img src="../images/logo.png" id="logo" alt="FrankenKopter Logo">
+  </div>
+  <nav class="nav-admin">
+    <ul>
+      <li><a href="/admin">Home</a></li>
+      <li><a href="/admin/emails">Emails</a></li>
+      <li><a class="active" href="/admin/testimonials">Testimonials</a></li>
+      <li><a href="/logout">Log Out</a></li>
+    </ul>
+  </nav>
+</header>
+<main class="testimonials">
+  <h1>Testimonials</h1>
+  <% @testimonials.each do |testimonial| %>
+    <section class="testimonial">
+      <dl>
+        <dt>First Name</dt>
+        <dd><%= testimonial[:first_name].capitalize %></dd>
+      </dl>
+      <dl>
+        <dt>Last Name</dt>
+        <dd><%= testimonial[:last_name].capitalize %></dd>
+      </dl>
+      <dl>
+        <dt>Email Address</dt>
+        <dd><%= testimonial[:email] %></dd>
+      </dl>
+      <dl>
+        <dt>Submitted</dt>
+        <dd><%= testimonial[:submitted] %></dd>
+      </dl>
+      <dl>
+        <dt>Published</dt>
+        <dd class="published"><%= testimonial[:published] %></dd>
+      </dl>
+      <button type="button" name="view">View Message</button>
+    </section>
+    <section>
+      <div class="overlay"></div>
+      <form class="overlay-form" action="testimonials/publish/<%= testimonial[:id] %>" method="post">
+        <button class="exit" type="button" name="exit"></button>
+        <dl class="third">
+          <dt>First Name</dt>
+          <dd><%= testimonial[:first_name].capitalize %></dd>
+        </dl>
+        <dl class="third">
+          <dt>Last Name</dt>
+          <dd><%= testimonial[:last_name].capitalize %></dd>
+        </dl>
+        <dl class="third">
+          <dt>Email Address</dt>
+          <dd><%= testimonial[:email] %></dd>
+        </dl>
+        <dl>
+          <dt>Submitted</dt>
+          <dd><%= testimonial[:submitted] %></dd>
+        </dl>
+        <dl>
+          <dt>Published</dt>
+          <dd class="published"><%= testimonial[:published] %></dd>
+        </dl>
+        <dl>
+          <dt class="centered">Testimonial</dt>
+          <dd><%= testimonial[:body] %></dd>
+        </dl>
+        <div class="actions">
+          <a class="edit" href="/testimonials/edit/<%= testimonial[:id] %>">Edit</a>
+          <% if  testimonial[:published] == 'false' %>
+            <input class="publish" type="submit" name="publish" value="Publish">
+          <% end %>
+          <button class="delete" type="button" name="Delete">Delete</button>
+        </div>
+      </form>
+    </section>
+    <section>
+      <div class="popup-overlay"></div>
+      <div class="popup">
+        <p>Are you sure you want to delete this testimonial?</p>
+        <p>This action can't be undone!</p>
+        <form action="/testimonials/destroy/<%= testimonial[:id] %>" method="post">
+          <fieldset>
+            <input class="delete" type="submit" name="delete" value="Delete">
+            <button class="cancel" type="button" name="cancel">Cancel</button>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+  <% end %>
+</main>

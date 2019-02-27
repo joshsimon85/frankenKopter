@@ -62,8 +62,26 @@ class DatabasePersistence
     query(sql, first_name, last_name, email, body)
   end
 
+  def emails
+    results = query('SELECT * FROM emails')
+
+    results.map { |tuple| tuple_to_email_hash(tuple) }
+  end
+
   def testimonials
     results = query('SELECT * FROM testimonials')
+
+    results.map { |tuple| tuple_to_testimonial_hash(tuple) }
+  end
+
+  def unread_emails
+    results = query('SELECT * FROM emails WHERE viewed = false')
+
+    results.map { |tuple| tuple_to_email_hash(tuple) }
+  end
+
+  def unpublished_testimonials
+    results = query('SELECT * FROM testimonials WHERE published = false')
 
     results.map { |tuple| tuple_to_testimonial_hash(tuple) }
   end
@@ -114,6 +132,19 @@ class DatabasePersistence
       last_name: tuple['last_name'],
       user_name: tuple['user_name'],
       password: tuple['password']
+    }
+  end
+
+  def tuple_to_email_hash(tuple)
+    {
+      id: tuple['id'].to_i,
+      first_name: tuple['first_name'],
+      last_name: tuple['last_name'],
+      phone_number: tuple['phone_number'],
+      email: tuple['email'],
+      message: tuple['message'],
+      viewed: tuple['viewed'],
+      sent: tuple['sent']
     }
   end
 

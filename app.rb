@@ -165,39 +165,6 @@ get '/about' do
   erb :about, layout: :layout
 end
 
-get '/admin', :auth => :admin do
-  @title = 'FrankenKopter | Admin'
-  @testimonials = @storage.testimonials
-
-  erb :admin, layout: :layout_admin
-end
-
-get '/login' do
-  @title = 'FrakenKopter | Login'
-
-  erb :admin_login, layout: :layout_admin
-end
-
-post '/login/authenticate' do
-  if valid_admin?(params[:user_name], params[:password])
-    admin = @storage.find_admin(params[:user_name])
-    session[:admin] = { id: admin[:id], firt_name: admin[:first_name] }
-
-    redirect '/admin'
-  else
-    session[:user_name] = params[:user_name]
-    session[:error] = 'Sorry that is an incorrect username or password'
-
-    redirect '/login'
-  end
-end
-
-get '/logout' do
-  session[:admin] = nil
-
-  redirect '/'
-end
-
 get '/testimonial' do
   @title = 'FrankenKopter | Testimonial'
 
@@ -229,29 +196,77 @@ post '/testimonial/new' do
   end
 end
 
-get '/testimonials/edit/:id', :auth => :admin do
-  @testimonial = @storage.fetch_testimonial(params[:id].to_i)[0]
+# admin pages
+get '/admin', :auth => :admin do
+  @title = 'FrankenKopter | Admin'
+  @unread_test = @storage.unpublished_testimonials.length
+  @unread_emails = @storage.unread_emails.length
 
-  erb :edit_testimonial, layout: :layout_admin
+  erb :admin , layout: :layout_admin
 end
 
-post '/testimonials/edit/:id', :auth => :admin do
+get '/login' do
+  @title = 'FrakenKopter | Login'
+  @admin = session[:admin]
+
+  erb :admin_login, layout: :layout_admin
+end
+
+post '/login/authenticate' do
+  if valid_admin?(params[:user_name], params[:password])
+    admin = @storage.find_admin(params[:user_name])
+    session[:admin] = { id: admin[:id], first_name: admin[:first_name] }
+
+    redirect '/admin'
+  else
+    session[:user_name] = params[:user_name]
+    session[:error] = 'Sorry that is an incorrect username or password'
+
+    redirect '/login'
+  end
+end
+
+get '/logout' do
+  session[:admin] = nil
+
+  redirect '/'
+end
+
+get '/admin/emails', :auth => :admin do
+
+  erb :admin_emails, layout: :layout_admin
+end
+
+get '/admin/testimonials', :auth => :admin do
+  @title = 'FrankenKopter | Admin'
+  @testimonials = @storage.testimonials
+
+  erb :admin_testimonials, layout: :layout_admin
+end
+
+get '/admin/testimonials/edit/:id', :auth => :admin do
+  @testimonial = @storage.fetch_testimonial(params[:id].to_i)[0]
+
+  erb :admin_edit_testimonial, layout: :layout_admin
+end
+
+post '/admin/testimonials/edit/:id', :auth => :admin do
   @storage.update_testimonial(params[:id], params[:message])
   session[:success] = 'Your testimonial has been updated!'
 
-  redirect '/admin'
+  redirect '/admin/testimonials'
 end
 
-post '/testimonials/publish/:id', :auth => :admin do
+post '/admin/testimonials/publish/:id', :auth => :admin do
   @storage.publish_testimonial(params[:id])
   session[:success] = 'Your testimonial has been published'
 
-  redirect '/admin'
+  redirect '/admin/testimonials'
 end
 
-post '/testimonials/destroy/:id', :auth => :admin do
+post '/admin/testimonials/destroy/:id', :auth => :admin do
   @storage.delete_testimonial(params[:id])
   session[:success] = 'Your testimonial has been deleted'
 
-  redirect '/admin'
+  redirect '/admin/testimonials'
 end

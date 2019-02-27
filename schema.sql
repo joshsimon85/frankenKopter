@@ -7,6 +7,7 @@ CREATE TABLE emails (
    phone_number varchar(50),
    email text NOT NULL,
    message text NOT NULL,
+   viewed boolean NOT NULL DEFAULT FALSE,
    sent timestamp NOT NULL DEFAULT NOW()
  );
 

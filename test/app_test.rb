@@ -18,7 +18,7 @@ class FrankenKopterTest < MiniTest::Test
   end
 
   def admin_session
-    { 'rack.session' => { admin: 'admin' } }
+    { 'rack.session' => { admin: {first_name: 'admin'} }}
   end
 
   def create_testimonial
@@ -106,6 +106,37 @@ class FrankenKopterTest < MiniTest::Test
     assert_includes last_response.body, 'Please provide a valid email'
   end
 
+  def test_get_testimonial
+    get '/testimonial'
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, '<title>FrankenKopter | Testimonial'
+    assert_includes last_response.body, '<form class="testimonial"'
+  end
+
+  def test_invalid_testimonial
+    post '/testimonial/new', first_name: '', last_name: '', email: '', message: ''
+
+    assert_equal 302, last_response.status
+    get last_response['Location']
+    assert_includes last_response.body, '<form class="testimonial"'
+    assert_includes last_response.body, 'Please provide a valid first name'
+    assert_includes last_response.body, 'Please provide a valid last name'
+    assert_includes last_response.body, 'Please provide a valid email'
+    assert_includes last_response.body, 'Please provide a valid message'
+  end
+
+  def test_valid_testimonial
+    skip "need to figure out a way to delete after creating"
+    post '/testimonial/new', first_name: 'admin', last_name: 'admin',
+                             email: 'test@test.com', message: 'lorem ipsum'
+
+    assert_equal 302, last_response.status
+    get last_response['Location']
+    assert_includes last_response.body, '<li><a class="active" data-id="home"'
+  end
+
+  # admin page tests
   def test_get_admin_login
     get '/login'
 
@@ -113,7 +144,7 @@ class FrankenKopterTest < MiniTest::Test
     assert_includes last_response.body, '<form class="admin-login"'
   end
 
-  def test_get_admin_page
+  def test_get_admin_page_no_credentials
     get '/admin'
 
     assert_equal 302, last_response.status
@@ -157,53 +188,39 @@ class FrankenKopterTest < MiniTest::Test
     assert_includes last_response.body, '<form class="admin-login"'
   end
 
-  def test_get_testimonial
-    get '/testimonial'
-
-    assert_equal 200, last_response.status
-    assert_includes last_response.body, '<title>FrankenKopter | Testimonial'
-    assert_includes last_response.body, '<form class="testimonial"'
-  end
-
-  def test_invalid_testimonial
-    post '/testimonial/new', first_name: '', last_name: '', email: '', message: ''
-
-    assert_equal 302, last_response.status
-    get last_response['Location']
-    assert_includes last_response.body, '<form class="testimonial"'
-    assert_includes last_response.body, 'Please provide a valid first name'
-    assert_includes last_response.body, 'Please provide a valid last name'
-    assert_includes last_response.body, 'Please provide a valid email'
-    assert_includes last_response.body, 'Please provide a valid message'
-  end
-
-  def test_valid_testimonial
-    skip "need to figure out a way to delete after creating"
-    post '/testimonial/new', first_name: 'admin', last_name: 'admin',
-                             email: 'test@test.com', message: 'lorem ipsum'
-
-    assert_equal 302, last_response.status
-    get last_response['Location']
-    assert_includes last_response.body, '<li><a class="active" data-id="home"'
-  end
-
   def test_admin
     get '/admin', {}, admin_session
 
     assert_equal 200, last_response.status
-    assert_includes last_response.body, '<h1>Testimonials</h1>'
+    assert_includes last_response.body, '<h1>FrankenKopter Admin Panel</h1>'
+    assert_includes last_response.body, '<h2>Welcome Admin!</h2>'
+  end
+
+  def test_admin_emails
+    get '/admin/emails', {}, admin_session
+
+    assert_equal 200, last_response.status;
   end
 
   def test_edit_route
+    skip
     get 'testimonials/edit/1', {}, admin_session
 
     assert_equal 200, last_response.status
-    assert_includes last_response.body, '<form action="/testimonials/edit/1"' +
-                                         ' method="post"'
+    assert_includes last_response.body, '<form action="/testimonials/edit/1"' \
+                                        ' method="post"'
   end
 
   def test_delete_route
     skip 'need to find a way to find this ones id for deleting after creation maybe make the id not unique in testing so we can pass a value each time'
     create_testimonial
+  end
+
+  def test_presence_delete_admin_popup
+    skip
+    get '/testimonials/edit/1', {}, admin_session
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, '<div class="popup">'
   end
 end
