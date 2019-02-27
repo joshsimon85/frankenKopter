@@ -233,7 +233,8 @@ get '/logout' do
 end
 
 get '/admin/emails', :auth => :admin do
-
+  @emails = @storage.emails
+  
   erb :admin_emails, layout: :layout_admin
 end
 

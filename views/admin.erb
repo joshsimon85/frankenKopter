@@ -15,9 +15,13 @@
   <h1>FrankenKopter Admin Panel</h1>
   <h2>Welcome <%= @admin[:first_name].capitalize %>!</h2>
   <ul>
-    <li>You have <%= @unread_emails %> unread <a href="/admin/emails">emails</a></li>
     <li>
-      You have <%= @unread_test %> unpublished <a href="/admin/testimonials">testimonials</a>
+      You have <%= @unread_emails %> unread
+      <a href="/admin/emails">email<%='s' if @unread_emails > 1 %></a>
+    </li>
+    <li>
+      You have <%= @unread_test %> unpublished
+      <a href="/admin/testimonials">testimonial <%='s' if @unread_test > 1 %></a>
     </li>
     <li><a href="/admin/password">Click here for password reset</a></li>
   </ul>

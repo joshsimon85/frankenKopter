@@ -11,3 +11,15 @@
     </ul>
   </nav>
 </header>
+<main class="emails">
+    <% @emails.each do |email| %>
+      <ul>
+        <li><%= email[:first_name].capitalize %></li>
+        <li><%= email[:last_name].capitalize %></li>
+        <li><%= email[:email] %></li>
+        <li><%= email[:sent] %></li>
+        <li><%= email[:viewed] == 'f' ? false : true %></li>
+        <li><%= email %></li>
+      </ul>
+    <% end %>
+</main>
