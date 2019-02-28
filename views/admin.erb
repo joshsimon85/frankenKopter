@@ -17,11 +17,11 @@
   <ul>
     <li>
       You have <%= @unread_emails %> unread
-      <a href="/admin/emails">email<%='s' if @unread_emails > 1 %></a>
+      <a href="/admin/emails"><%= @unread_emails > 1 ? 'emails' : 'email' %></a>
     </li>
     <li>
       You have <%= @unread_test %> unpublished
-      <a href="/admin/testimonials">testimonial <%='s' if @unread_test > 1 %></a>
+      <a href="/admin/testimonials"><%= @unread_test > 1 ? 'testimonials' : 'testimonial' %></a>
     </li>
     <li><a href="/admin/password">Click here for password reset</a></li>
   </ul>
