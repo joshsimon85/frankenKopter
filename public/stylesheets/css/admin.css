@@ -392,6 +392,11 @@ input.edit:hover {
 
 /* Admin Emails */
 
+/* Admin Password Reset */
+.admin-login.reset {
+  margin-top: 50px;
+}
+
 /* Responsive */
 @media screen and (max-width: 900px) {
   #logo {

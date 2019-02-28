@@ -215,7 +215,15 @@ class FrankenKopterTest < MiniTest::Test
     get '/admin/password_reset', {}, admin_session
 
     assert_equal 200, last_response.status
-    assert_includes last_response.body, '<h1>Reset Your Password</h1>'
+    assert_includes last_response.body, '<h1>Password Reset</h1>'
+  end
+
+  def test_password_reset_valid
+    skip
+    post '/admin/password_reset/authenticate', {user_name: 'admin', password: 'admin', new_password: 'admin'}, admin_session
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, 'welcome'
   end
 ################
   def test_edit_route

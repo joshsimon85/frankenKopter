@@ -111,6 +111,12 @@ class DatabasePersistence
     query(sql, id)
   end
 
+  def update_admin_password(username, password)
+    sql = 'UPDATE admins SET password = $2 WHERE user_name = $1'
+
+    query(sql, username, password)
+  end
+
   private
 
   def convert_to_string(bool)

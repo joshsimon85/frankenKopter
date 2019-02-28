@@ -16,6 +16,7 @@ configure(:development) do
   require 'rubocop'
   require 'pry'
   also_reload 'stylesheets/css/master.css'
+  also_reload 'stylesheets/css/admin.css'
   also_reload 'database_persistence.rb'
 end
 
@@ -233,8 +234,30 @@ get '/logout' do
 end
 
 get '/admin/password_reset', :auth => :admin do
+  @title = 'FrankenKopter | Password Reset'
 
   erb :admin_password_reset, layout: :layout_admin
+end
+
+post '/admin/password_reset/authenticate', :auth => :admin do
+  if valid_admin?(params[:user_name], params[:password]) &&
+                  params[:new_password] != ''
+
+
+    @storage.update_admin_password(params[:user_name],
+                                   encrypt_password(params[:new_password]))
+    session[:success] = 'Your password has been updated'
+
+    redirect '/admin'
+  elsif params[:new_password] == ''
+    session[:error] = "Your new password can't be blank"
+
+    redirect '/admin/password_reset'
+  else
+    session[:error] = 'Invalid username and/or password'
+
+    redirect '/admin/password_reset'
+  end
 end
 
 get '/admin/emails', :auth => :admin do
