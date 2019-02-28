@@ -143,8 +143,8 @@ class DatabasePersistence
       phone_number: tuple['phone_number'],
       email: tuple['email'],
       message: tuple['message'],
-      viewed: tuple['viewed'],
-      sent: tuple['sent']
+      viewed: convert_to_string(tuple['viewed']),
+      sent: convert_date(tuple['sent'])
     }
   end
 

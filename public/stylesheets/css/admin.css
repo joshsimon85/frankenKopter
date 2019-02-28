@@ -188,13 +188,13 @@ nav a.active {
   margin: 5px 0 10px 10px;;
   padding: 10px 15px;
 }
-/* Admin Main */
+/* Admin Testimonial and Email */
 .nav-admin {
   margin-right: 20px;
   text-align: right;
 }
 
-.testimonial {
+.testimonial, .email {
   border: 1px solid #cecece;
   border-radius: 4px;
   display: flex;
@@ -204,16 +204,16 @@ nav a.active {
   width: 70%;
 }
 
-.testimonials {
+.testimonials, .emails {
   margin-top: 50px;
 }
 
-.testimonial dt {
+.testimonial dt, .email dt {
   font-size: 19px;
   margin-bottom: 10px;
 }
 
-.testimonial dl {
+.testimonial dl, .email dl {
   display: inline-block;
 }
 
@@ -389,6 +389,8 @@ input.edit:hover {
   color: #679809;
   font-weight: 700;
 }
+
+/* Admin Emails */
 
 /* Responsive */
 @media screen and (max-width: 900px) {

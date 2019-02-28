@@ -232,9 +232,14 @@ get '/logout' do
   redirect '/'
 end
 
+get '/admin/password_reset', :auth => :admin do
+
+  erb :admin_password_reset, layout: :layout_admin
+end
+
 get '/admin/emails', :auth => :admin do
   @emails = @storage.emails
-  
+
   erb :admin_emails, layout: :layout_admin
 end
 

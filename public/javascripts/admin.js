@@ -36,8 +36,8 @@ $(function() {
       $('.delete').on('click', this.handleDelete.bind(this));
       $('.popup').on('click', this.handleCancel.bind(this));
     },
-    setPublishedColor: function() {
-      $('.published').each(function(_, dd) {
+    setColor: function() {
+      $('.published, .viewed').each(function(_, dd) {
         var $dd = $(dd);
         if ($dd.text() === 'false') {
           $dd.css('color', 'red');
@@ -48,7 +48,7 @@ $(function() {
     },
     init: function() {
       this.bindEvents();
-      this.setPublishedColor();
+      this.setColor();
     }
   };
 

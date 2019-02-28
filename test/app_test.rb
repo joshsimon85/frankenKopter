@@ -200,8 +200,24 @@ class FrankenKopterTest < MiniTest::Test
     get '/admin/emails', {}, admin_session
 
     assert_equal 200, last_response.status;
+    assert_includes last_response.body, '<h1>Emails</h1>'
   end
 
+  def test_non_admin_password_reset
+    get '/admin/password_reset'
+
+    assert_equal 302, last_response.status
+    get last_response['Location']
+    assert_includes last_response.body, '<form class="admin-login"'
+  end
+
+  def test_password_reset
+    get '/admin/password_reset', {}, admin_session
+
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, '<h1>Reset Your Password</h1>'
+  end
+################
   def test_edit_route
     skip
     get 'testimonials/edit/1', {}, admin_session

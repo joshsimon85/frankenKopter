@@ -12,14 +12,39 @@
   </nav>
 </header>
 <main class="emails">
+  <h1>Emails</h1>
+  <ul>
     <% @emails.each do |email| %>
-      <ul>
-        <li><%= email[:first_name].capitalize %></li>
-        <li><%= email[:last_name].capitalize %></li>
-        <li><%= email[:email] %></li>
-        <li><%= email[:sent] %></li>
-        <li><%= email[:viewed] == 'f' ? false : true %></li>
-        <li><%= email %></li>
-      </ul>
-    <% end %>
+      <li class="email">
+        <dl>
+          <dt>First Name</dt>
+          <dd><%= email[:first_name].capitalize %></dd>
+          </dl>
+          <dl>
+            <dt>Last Name</dt>
+            <dd><%= email[:last_name].capitalize %></dd>
+          </dl>
+          <dl>
+            <dt>Phone Number</dt>
+            <dd>
+              <%= email[:phone_number].length == 0 ? 'not provided' :
+                                                     email[:phone_number] %>
+            </dd>
+          </dl>
+          <dl>
+            <dt>Email</dt>
+            <dd><%= email[:email] %></dd>
+          </dl>
+          <dl>
+            <dt>Viewed</dt>
+            <dd class="viewed"><%= email[:viewed] %></dd>
+          </dl>
+          <dl>
+            <dt>Sent</dt>
+            <dd><%= email[:sent] %></dd>
+          </dl>
+          <button type="button" name="view">View Email</button>
+        </li>
+      <% end %>
+  </ul>
 </main>
