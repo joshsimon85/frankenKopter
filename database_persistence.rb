@@ -117,6 +117,18 @@ class DatabasePersistence
     query(sql, username, password)
   end
 
+  def delete_email(id)
+    sql = 'DELETE FROM emails WHERE id = $1'
+
+    query(sql, id)
+  end
+
+  def mark_email_viewed(id)
+    sql = 'UPDATE emails SET viewed = true WHERE id = $1'
+
+    query(sql, id)
+  end
+
   private
 
   def convert_to_string(bool)

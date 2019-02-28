@@ -241,7 +241,8 @@ end
 
 post '/admin/password_reset/authenticate', :auth => :admin do
   if valid_admin?(params[:user_name], params[:password]) &&
-                  params[:new_password] != ''
+                  params[:new_password] != '' &&
+                  params[:new_password] == params[:password_confirm]
 
 
     @storage.update_admin_password(params[:user_name],
@@ -251,6 +252,10 @@ post '/admin/password_reset/authenticate', :auth => :admin do
     redirect '/admin'
   elsif params[:new_password] == ''
     session[:error] = "Your new password can't be blank"
+
+    redirect '/admin/password_reset'
+  elsif params[:new_password] != params[:password_confirm]
+    session[:error] = 'Your new passwords must match'
 
     redirect '/admin/password_reset'
   else
@@ -264,6 +269,20 @@ get '/admin/emails', :auth => :admin do
   @emails = @storage.emails
 
   erb :admin_emails, layout: :layout_admin
+end
+
+post '/admin/emails/destroy/:id', :auth => :admin do
+  @storage.delete_email(params[:id])
+  session[:success] = 'Your email has been deleted!'
+
+  redirect '/admin/emails'
+end
+
+post '/admin/emails/mark_viewed/:id', :auth => :admin do
+  @storage.mark_email_viewed(params[:id])
+  session[:success] = 'Your email has been maked as viewed'
+
+  redirect '/admin/emails'
 end
 
 get '/admin/testimonials', :auth => :admin do

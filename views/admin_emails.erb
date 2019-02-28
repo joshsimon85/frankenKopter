@@ -13,38 +13,85 @@
 </header>
 <main class="emails">
   <h1>Emails</h1>
-  <ul>
-    <% @emails.each do |email| %>
-      <li class="email">
-        <dl>
+  <% @emails.each do |email| %>
+    <section class="email">
+      <dl>
+        <dt>First Name</dt>
+        <dd><%= email[:first_name].capitalize %></dd>
+      </dl>
+      <dl>
+        <dt>Last Name</dt>
+        <dd><%= email[:last_name].capitalize %></dd>
+      </dl>
+      <dl>
+        <dt>Phone Number</dt>
+        <dd>
+          <%= email[:phone_number].length == 0 ? 'not provided' :
+                                                  email[:phone_number] %>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Email</dt>
+        <dd><%= email[:email] %></dd>
+      </dl>
+      <dl>
+        <dt>Viewed</dt>
+        <dd class="viewed"><%= email[:viewed] %></dd>
+      </dl>
+      <dl>
+        <dt>Sent</dt>
+        <dd><%= email[:sent] %></dd>
+      </dl>
+      <button type="button" name="view">View Email</button>
+    </section>
+    <section>
+      <div class="overlay"></div>
+      <form class="overlay-form" action="/admin/emails/mark_viewed/<%= email[:id] %>" method="post">
+        <button class="exit" type="button" name="exit"></button>
+        <dl class="third">
           <dt>First Name</dt>
           <dd><%= email[:first_name].capitalize %></dd>
-          </dl>
-          <dl>
-            <dt>Last Name</dt>
-            <dd><%= email[:last_name].capitalize %></dd>
-          </dl>
-          <dl>
-            <dt>Phone Number</dt>
-            <dd>
-              <%= email[:phone_number].length == 0 ? 'not provided' :
-                                                     email[:phone_number] %>
-            </dd>
-          </dl>
-          <dl>
-            <dt>Email</dt>
-            <dd><%= email[:email] %></dd>
-          </dl>
-          <dl>
-            <dt>Viewed</dt>
-            <dd class="viewed"><%= email[:viewed] %></dd>
-          </dl>
-          <dl>
-            <dt>Sent</dt>
-            <dd><%= email[:sent] %></dd>
-          </dl>
-          <button type="button" name="view">View Email</button>
-        </li>
-      <% end %>
-  </ul>
+        </dl>
+        <dl class="third">
+          <dt>Last Name</dt>
+          <dd><%= email[:last_name].capitalize %></dd>
+        </dl>
+        <dl class="third">
+          <dt>Email Address</dt>
+          <dd><%= email[:email] %></dd>
+        </dl>
+        <dl>
+          <dt>Submitted</dt>
+          <dd><%= email[:sent] %></dd>
+        </dl>
+        <dl>
+          <dt>Viewed</dt>
+          <dd class="published"><%= email[:viewed] %></dd>
+        </dl>
+        <dl>
+          <dt class="centered">Message</dt>
+          <dd><%= email[:message] %></dd>
+        </dl>
+        <div class="actions">
+          <% if  email[:viewed] == 'false' %>
+            <input class="publish" type="submit" name="mark_viewed" value="Mark Viewed">
+          <% end %>
+          <button class="delete" type="button" name="Delete">Delete</button>
+        </div>
+      </form>
+    </section>
+    <section>
+      <div class="popup-overlay"></div>
+      <div class="popup">
+        <p>Are you sure you want to delete this email?</p>
+        <p>This action can't be undone!</p>
+        <form action="/admin/emails/destroy/<%= email[:id] %>" method="post">
+          <fieldset>
+            <input class="delete" type="submit" name="delete" value="Delete">
+            <button class="cancel" type="button" name="cancel">Cancel</button>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+  <% end %>
 </main>

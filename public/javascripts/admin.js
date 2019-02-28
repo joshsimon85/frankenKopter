@@ -31,7 +31,7 @@ $(function() {
       $(e.target).closest('section').find('.popup').hide();
     },
     bindEvents: function() {
-      $('.testimonial').on('click', 'button', this.handleView.bind(this));
+      $('.testimonial, .email').on('click', 'button', this.handleView.bind(this));
       $('.exit').on('click', this.handleExit.bind(this));
       $('.delete').on('click', this.handleDelete.bind(this));
       $('.popup').on('click', this.handleCancel.bind(this));

@@ -219,11 +219,27 @@ class FrankenKopterTest < MiniTest::Test
   end
 
   def test_password_reset_valid
-    skip
-    post '/admin/password_reset/authenticate', {user_name: 'admin', password: 'admin', new_password: 'admin'}, admin_session
+    post '/admin/password_reset/authenticate', { user_name: 'admin', password: 'admin', new_password: 'admin', password_confirm: 'admin' }, admin_session
 
-    assert_equal 200, last_response.status
-    assert_includes last_response.body, 'welcome'
+    assert_equal 302, last_response.status
+    get last_response['location']
+    assert_includes last_response.body, 'Your password has been updated'
+  end
+
+  def test_password_reset_invalid
+    post '/admin/password_reset/authenticate', {user_name: 'admin', password: 'null', password_confirm: 'null', new_password: 'null'}, admin_session
+
+    assert_equal 302, last_response.status
+    get last_response['location']
+    assert_includes last_response.body, 'Invalid username and/or password'
+  end
+
+  def test_password_reset_empty_new_password
+    post '/admin/password_reset/authenticate', {user_name: 'admin', password: 'admin', new_password: ''}, admin_session
+
+    assert_equal 302, last_response.status
+    get last_response['location']
+    assert_includes last_response.body, 'Your new password can&#39;t be blank'
   end
 ################
   def test_edit_route
