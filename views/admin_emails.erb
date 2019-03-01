@@ -87,8 +87,8 @@
         <p>This action can't be undone!</p>
         <form action="/admin/emails/destroy/<%= email[:id] %>" method="post">
           <fieldset>
-            <input class="delete" type="submit" name="delete" value="Delete">
-            <button class="cancel" type="button" name="cancel">Cancel</button>
+              <button class="btn" type="button" name="cancel">Cancel</button>
+            <input class="btn danger" type="submit" name="delete" value="Delete">
           </fieldset>
         </form>
       </div>

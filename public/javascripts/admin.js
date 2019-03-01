@@ -33,7 +33,7 @@ $(function() {
     bindEvents: function() {
       $('.testimonial, .email').on('click', 'button', this.handleView.bind(this));
       $('.exit').on('click', this.handleExit.bind(this));
-      $('.delete').on('click', this.handleDelete.bind(this));
+      $('.btn.danger').on('click', this.handleDelete.bind(this));
       $('.popup').on('click', this.handleCancel.bind(this));
     },
     setColor: function() {
