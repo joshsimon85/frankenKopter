@@ -42,7 +42,7 @@
         <dt>Sent</dt>
         <dd><%= email[:sent] %></dd>
       </dl>
-      <button type="button" name="view">View Email</button>
+      <button class="btn flex" type="button" name="view">View Email</button>
     </section>
     <section>
       <div class="overlay"></div>
@@ -70,13 +70,13 @@
         </dl>
         <dl>
           <dt class="centered">Message</dt>
-          <dd><%= email[:message] %></dd>
+          <dd><textarea readonly rows="8" cols="80"><%= email[:message] %></textarea></dd>
         </dl>
         <div class="actions">
           <% if  email[:viewed] == 'false' %>
-            <input class="publish" type="submit" name="mark_viewed" value="Mark Viewed">
+            <input class="btn flex" type="submit" name="mark_viewed" value="Mark Viewed">
           <% end %>
-          <button class="delete" type="button" name="Delete">Delete</button>
+          <button class="btn danger" type="button" name="Delete">Delete</button>
         </div>
       </form>
     </section>

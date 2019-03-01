@@ -4,6 +4,9 @@
   </div>
   <nav class="nav-admin">
     <ul>
+      <li><a href="/admin">Home</a></li>
+      <li><a href="/admin/emails">Emails</a></li>
+      <li><a href="/admin/testimonials">Testimonials</a></li>
       <li><a href="/logout">Log Out</a></li>
     </ul>
   </nav>
@@ -37,14 +40,14 @@
         <dd><textarea name="message" rows="8" cols="80"><%= @testimonial[:body] %></textarea></dd>
       </dl>
       <div class="actions">
-        <input class="edit" type="submit" name="edit" value="Update">
-        <a class="revert" href="/admin/testimonials/edit/<%= @testimonial[:id] %>">Revert</a>
+        <input class="btn" type="submit" name="edit" value="Update">
+        <a class="btn" href="/admin/testimonials/edit/<%= @testimonial[:id] %>">Revert</a>
         <% if @testimonial[:published] == 'false' %>
-          <input class="publish" type="submit" name="publish" value="Publish"
+          <input class="btn" type="submit" name="publish" value="Publish"
                  formaction="/admin/testimonials/publish/<%= @testimonial[:id] %>">
         <% end %>
-        <a class="cancel" href="/admin/testimonials">Cancel</a>
-        <button class="delete" type="button" name="button">Delete</button>
+        <a class="btn" href="/admin/testimonials">Cancel</a>
+        <button class="btn danger" type="button" name="button">Delete</button>
       </div>
     </form>
   </section>

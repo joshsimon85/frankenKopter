@@ -35,7 +35,7 @@
         <dt>Published</dt>
         <dd class="published"><%= testimonial[:published] %></dd>
       </dl>
-      <button type="button" name="view">View Message</button>
+      <button class="btn flex" type="button" name="view">View Message</button>
     </section>
     <section>
       <div class="overlay"></div>
@@ -63,14 +63,14 @@
         </dl>
         <dl>
           <dt class="centered">Testimonial</dt>
-          <dd><%= testimonial[:body] %></dd>
+          <dd><textarea readonly rows="8" cols="80"><%= testimonial[:body] %></textarea></dd>
         </dl>
         <div class="actions">
-          <a class="edit" href="/admin/testimonials/edit/<%= testimonial[:id] %>">Edit</a>
+          <a class="btn" href="/admin/testimonials/edit/<%= testimonial[:id] %>">Edit</a>
           <% if  testimonial[:published] == 'false' %>
-            <input class="publish" type="submit" name="publish" value="Publish">
+            <input class="btn" type="submit" name="publish" value="Publish">
           <% end %>
-          <button class="delete" type="button" name="Delete">Delete</button>
+          <button class="btn danger" type="button" name="Delete">Delete</button>
         </div>
       </form>
     </section>

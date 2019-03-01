@@ -40,9 +40,9 @@ $(function() {
       $('.published, .viewed').each(function(_, dd) {
         var $dd = $(dd);
         if ($dd.text() === 'false') {
-          $dd.css('color', 'red');
+          $dd.css('color', '#ff0000');
         } else {
-          $dd.css('color', '#8dcf0e');
+          $dd.css('color', '#2e4313');
         }
       });
     },
