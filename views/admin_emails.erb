@@ -60,6 +60,13 @@
           <dt>Email Address</dt>
           <dd><%= email[:email] %></dd>
         </dl>
+        <dl class="third">
+          <dt>Phone Number</dt>
+          <dd>
+            <%= email[:phone_number].length == 0 ? 'not provided' :
+                                                    email[:phone_number] %>
+          </dd>
+        </dl>
         <dl>
           <dt>Submitted</dt>
           <dd><%= email[:sent] %></dd>

@@ -164,9 +164,17 @@ nav li:last-of-type a {
   padding: 5px 10px;
 }
 
+nav li:last-of-type a:hover {
+  border: 1px solid #000;
+}
+
 nav a:hover {
   background: transparent;
-  color: #4d7107;
+  color: #000;
+}
+
+nav a.active:hover {
+  border-bottom: 1px solid #000;
 }
 
 nav a.active {
@@ -346,7 +354,7 @@ form dd {
 
 /* Admin Home */
 .admin-home {
-  margin: 50px auto 0 auto;
+  margin: 10% auto 0 auto;
   text-align: center;
   width: 75%;
 }
@@ -366,6 +374,9 @@ form dd {
   text-decoration: none;
 }
 
+.admin-home a:hover {
+  color: #000;
+}
 /* Admin Emails */
 
 /* Admin Password Reset */
