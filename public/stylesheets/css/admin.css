@@ -32,7 +32,7 @@ input:focus {
 }
 
 textarea {
-  border: 1px solid #CECECE;
+  border: 1px solid #cecece;
   border-radius: 4px;
   font-size: 18px;
   padding: 5px;
@@ -105,9 +105,9 @@ button:focus {
 
 .flash-message .success {
   background: rgba(141, 207, 14, 0.1);
-  border-bottom: 1px solid #8DCF0E;
-  border-top: 1px solid #8DCF0E;
-  color: #8dcf0e;
+  border-bottom: 1px solid #4c7615;
+  border-top: 1px solid #4c7615;
+  color: #4c7615;
   padding: 10px 0;
 }
 

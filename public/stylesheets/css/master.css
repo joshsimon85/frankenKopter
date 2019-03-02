@@ -1,25 +1,25 @@
 @import url('whitespace-reset.css');
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
-
+@import url('https://fonts.googleapis.com/css?family=Chivo:400,900');
 /* Universal */
 * {
   box-sizing: border-box;
 }
 
 body {
-  background: linear-gradient(to right, #fefefe, #ffffff);
-  font-family: 'Roboto', 'Helvetica', sans-serif;
+  font-family: 'Chivo', 'Roboto', 'Helvetica', sans-serif;
 }
 
 h1 {
   font-size: 26px;
+  font-weight: 400;
   margin-bottom: 20px;
-  margin-top: 40px;
   text-align: center;
 }
 
-.tag-line {
-  margin-top: 20px;
+h2 {
+  font-size: 25px;
+  font-weight: 900;
 }
 
 input {
@@ -31,7 +31,7 @@ input:focus {
 }
 
 textarea {
-  border: 1px solid #CECECE;
+  border: 1px solid #cecece;
   border-radius: 4px;
   font-size: 18px;
   padding: 5px;
@@ -40,8 +40,29 @@ textarea {
 }
 
 textarea:focus {
+  border: 1px solid #4c7615;
   box-shadow: none;
   outline: none;
+}
+
+[type="submit"] {
+  border: 2px solid #4c7615;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #4c7615;
+  cursor: pointer;
+  height: 40px;
+  width: 100px;
+}
+
+[type="submit"]:hover {
+  box-shadow: inset 0 0 1px 1px;
+}
+
+footer {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  text-align: center;
 }
 
 /* Flash Message */
@@ -52,9 +73,9 @@ textarea:focus {
 
 .flash-message .success {
   background: rgba(141, 207, 14, 0.1);
-  border-bottom: 1px solid #8DCF0E;
-  border-top: 1px solid #8DCF0E;
-  color: #8dcf0e;
+  border-bottom: 1px solid #4c7615;
+  border-top: 1px solid #4c7615;
+  color: #4c7615;
   padding: 10px 0;
 }
 
@@ -72,14 +93,23 @@ textarea:focus {
   left: 10px;
   position: absolute;
   top: 5px;
+  z-index: 1;
 }
 
 nav {
-  height: 50px;
-  padding-bottom: 20px;
+  margin-right: 30px;
+  text-align: right;
+  padding-bottom: 50px;
   padding-top: 50px;
-  position: relative;
-  text-align: center;
+}
+
+nav.absolute {
+  margin-right: 0;
+  padding-right: 30px;
+  padding-top: 50px;
+  position: absolute;
+  right: 0;
+  z-index: 1;
 }
 
 nav ul {
@@ -92,11 +122,10 @@ nav li {
 
 nav a {
   background-color: transparent;
-  color: #8DCF0E;
+  color: #4c7615;
   font-size: 18px;
-  margin-right: 50px;
+  margin-right: 40px;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 nav li:last-of-type a {
@@ -105,46 +134,62 @@ nav li:last-of-type a {
 
 nav a:hover {
   background: transparent;
-  color: #4d7107;
 }
 
 nav a.active {
-  border-bottom: 1px solid #8DCF0E;
+  border-bottom: 1px solid #4c7615;
 }
 
 /* Home Page */
-main > figure {
-  display: block;
-  margin: 20px 50px 0 50px;
-  text-align: center;
-}
-
-main > figure > img {
-  display: inline-block;
-  width: 100%;
-}
-
-figure + h1 {
-  background: transparent;
-  color: #3467D7;
-  margin-top: 20px;
+#img_lg {
+  background: no-repeat center/100% url("https://via.placeholder.com/1250x500");
+  height: 500px;
 }
 
 .home {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  background: no-repeat center/100% url('/images/test_background.jpg');
+  background-attachment: fixed;
 }
 
-.highlights {
-  background-color: transparent;
-  color: #3467D7;
-  margin-bottom: 20px;
+.home section {
+  background-color: #fff;
+}
+
+.home section:first-of-type h2 {
+  text-align: center;
+  font-size: 28px;
+  padding-top: 15%;
+}
+
+.home section:first-of-type p {
+  font-family: 'Chivo', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  padding-top: 20px;
   text-align: center;
 }
 
-.highlights li {
-  font-size: 18px;
-  margin-top: 10px;
+.home .our_testimonials {
+  background-color: transparent;
+  height: 350px;
+  text-align: center;
+}
+
+.contact_us {
+  height: 300px;
+  padding-top: 8%;
+  text-align: center;
+}
+
+.contact_us a {
+  background-color: rgba(36, 60, 131, 0.6);
+  border-radius: 50px;
+  color: #fff;
+  display: inline-block;
+  letter-spacing: 1px;
+  margin-top: 20px;
+  padding: 15px;
+  text-decoration: none;
 }
 
 /* About Page */
@@ -208,12 +253,8 @@ figure + h1 {
   margin-bottom: 10px;
 }
 
-.contact [type="submit"], .testimonial [type="submit"] {
-  border-radius: 5px;
-  background-color: #8DCF0E;
-  color: #FFF;
-  height: 40px;
-  width: 100px;
+.contact input:focus, .testimonial input:focus {
+  border: 1px solid #4c7615;
 }
 
 .contact p, .testimonial p {
@@ -222,14 +263,6 @@ figure + h1 {
 
 .contact .invalid, .testimonial .invalid {
   border: 1px solid red;
-}
-
-.contact input:focus, .testimonial input:focus {
-  border: 1px solid #8DCF0E;
-}
-
-.contact textarea:focus, .testimonial textarea:focus {
-  border: 1px solid #8DCF0E;
 }
 
 .invalid_text, .invalid_first, .invalid_last {
@@ -247,7 +280,7 @@ figure + h1 {
 .testimonial {
   border: 1px solid #cecece;
   border-radius: 4px;
-  margin: 50px auto;
+  margin: 0 auto;
   padding: 20px;
   width: 75%;
 }

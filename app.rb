@@ -68,10 +68,6 @@ helpers do
     message.match?(/[a-z]+/i) && message != ''
   end
 
-  def convert(phone_number)
-    phone_number.gsub(/[^0-9]/, '')
-  end
-
   def create_methods(data)
     methods = []
 
@@ -119,7 +115,7 @@ end
 not_found do
   status 404
 
-  erb :oops
+  'page not found'
 end
 
 get '/' do
