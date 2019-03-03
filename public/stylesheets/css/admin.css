@@ -392,6 +392,10 @@ form dd {
     position: relative;
   }
 
+  .admin-login {
+    margin-top: 50px;
+  }
+
   .container {
     text-align: center;
   }
@@ -404,9 +408,38 @@ form dd {
 
   nav {
     height: auto;
-    margin-top: 25px;
-    padding: 0;
+    margin: 25px auto 0 auto;
     text-align: center;
+    padding: 0;
+    width: 90%;
+  }
+
+  nav li:nth-last-of-type(2) a {
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  nav li:last-of-type {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .email, .testimonial {
+    flex-flow: row wrap;
+    width: 100%;
+  }
+
+  .overlay-form {
+    left: 0;
+    width: 100%;
+  }
+
+  .popup {
+    left: 0;
+    width: 100%;
+  }
+
+  .single-testimonial {
     width: 100%;
   }
 }
