@@ -93,7 +93,7 @@ footer {
   left: 10px;
   position: absolute;
   top: 5px;
-  z-index: 1;
+  z-index: 2;
 }
 
 nav {
@@ -104,12 +104,18 @@ nav {
 }
 
 nav.absolute {
+  color: #85c336;
+  left: 0;
   margin-right: 0;
   padding-right: 30px;
   padding-top: 50px;
   position: absolute;
   right: 0;
   z-index: 1;
+}
+
+nav.absolute .active {
+  border-bottom: 1px solid #85c336
 }
 
 nav ul {
@@ -122,7 +128,7 @@ nav li {
 
 nav a {
   background-color: transparent;
-  color: #4c7615;
+  color: #85c336;
   font-size: 18px;
   margin-right: 40px;
   text-decoration: none;
@@ -142,13 +148,18 @@ nav a.active {
 
 /* Home Page */
 #img_lg {
-  background: no-repeat center/100% url("https://via.placeholder.com/1250x500");
-  height: 500px;
+  background: no-repeat url("/../images/helicopter.gif") center/100% fixed;
+  height: 100vh;
 }
 
-.home {
-  background: no-repeat center/100% url('/images/test_background.jpg');
-  background-attachment: fixed;
+#img_lg h2 {
+  font-size: 36px;
+  letter-spacing: 6px;
+}
+
+#img_lg p {
+  font-size: 28px;
+  letter-spacing: 2px;
 }
 
 .home section {
@@ -156,12 +167,14 @@ nav a.active {
 }
 
 .home section:first-of-type h2 {
+  color: #fff;
   text-align: center;
   font-size: 28px;
   padding-top: 15%;
 }
 
 .home section:first-of-type p {
+  color: #fff;
   font-family: 'Chivo', sans-serif;
   font-size: 20px;
   font-weight: 900;
@@ -170,14 +183,36 @@ nav a.active {
 }
 
 .home .our_testimonials {
-  background-color: transparent;
+  background: no-repeat center/100% url('/images/testimonial_3.jpg') fixed;
   height: 350px;
   text-align: center;
 }
 
+.our_testimonials ul {
+  margin: 0 auto;
+  padding-top: 90px;
+  width: 60%;
+}
+
+.our_testimonials ul li:first-of-type {
+  font-size: 20px;
+}
+
+.our_testimonials ul li:nth-of-type(2) {
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.quotes {
+  background: no-repeat center url('/images/quotes_350.gif');
+  height: 100%;
+}
+
 .contact_us {
+  border-bottom: 1px solid #cecece;
+  border-top: 1px solid #cecece;
   height: 300px;
-  padding-top: 8%;
+  padding-top: 7%;
   text-align: center;
 }
 

@@ -120,6 +120,7 @@ end
 
 get '/' do
   @title = 'FrankenKopter | Home'
+  @testimonials = @storage.fetch_n_testimonials(1)
 
   erb :home, layout: :layout
 end

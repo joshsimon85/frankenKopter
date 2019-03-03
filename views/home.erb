@@ -21,13 +21,22 @@
     <p>why choose frankenkopter</p>
     <p>benefits</p>
   </section>
-  <section class="our_testimonials">
-    <p>"</p>
-    <p>This is where testimonials will go</p>
-  </section>
   <section class="contact_us">
     <h2>Let's create a performance upgrade plan for you Rotorway!</h2>
     <a href="/contact">GET IN TOUCH</a>
+  </section>
+  <section class="our_testimonials">
+    <div class="quotes">
+      <% @testimonials.each do |testimonial| %>
+        <ul>
+          <li>
+            <%= testimonial[:first_name].capitalize %>
+            <%= testimonial[:last_name].capitalize %>
+          </li>
+          <li><%= testimonial[:body] %></li>
+        </ul>
+      <% end %>
+    </div>
   </section>
 </main>
 <footer>
