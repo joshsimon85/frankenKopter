@@ -126,6 +126,8 @@ get '/' do
 end
 
 get '/contact' do
+  cache_control :public, 'no-cache, no-store, must-revalidate'
+
   @title = 'FrankenKopter | Contact'
 
   erb :contact, layout: :layout
@@ -164,6 +166,8 @@ get '/about' do
 end
 
 get '/testimonial' do
+  cache_control :public, 'no-cache, no-store, must-revalidate'
+  
   @title = 'FrankenKopter | Testimonial'
 
   erb :testimonial, layout: :layout_testimonial
@@ -196,6 +200,8 @@ end
 
 # admin pages
 get '/admin', :auth => :admin do
+  cache_control :public, 'no-cache, no-store, must-revalidate'
+
   @title = 'FrankenKopter | Admin'
   @unread_test = @storage.unpublished_testimonials.length
   @unread_emails = @storage.unread_emails.length
@@ -231,6 +237,8 @@ get '/logout' do
 end
 
 get '/admin/password_reset', :auth => :admin do
+  cache_control :public, 'no-cache, no-store, must-revalidate'
+
   @title = 'FrankenKopter | Password Reset'
 
   erb :admin_password_reset, layout: :layout_admin
@@ -263,6 +271,8 @@ post '/admin/password_reset/authenticate', :auth => :admin do
 end
 
 get '/admin/emails', :auth => :admin do
+  cache_control :public, 'no-cache, no-store, must-revalidate'
+
   @emails = @storage.emails
 
   erb :admin_emails, layout: :layout_admin
@@ -283,6 +293,8 @@ post '/admin/emails/mark_viewed/:id', :auth => :admin do
 end
 
 get '/admin/testimonials', :auth => :admin do
+  cache_control :public, 'no-cache, no-store, must-revalidate'
+
   @title = 'FrankenKopter | Admin'
   @testimonials = @storage.testimonials
 
@@ -290,6 +302,8 @@ get '/admin/testimonials', :auth => :admin do
 end
 
 get '/admin/testimonials/edit/:id', :auth => :admin do
+  cache_control :public, 'no-cache, no-store, must-revalidate'
+
   @testimonial = @storage.fetch_testimonial(params[:id].to_i)[0]
 
   erb :admin_edit_testimonial, layout: :layout_admin
