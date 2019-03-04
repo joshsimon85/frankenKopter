@@ -400,12 +400,6 @@ form dd {
     text-align: center;
   }
 
-  main > figure {
-    display: block;
-    margin: 20px 20px 0 20px;
-    text-align: center;
-  }
-
   nav {
     height: auto;
     margin: 25px auto 0 auto;
@@ -422,6 +416,11 @@ form dd {
   nav li:last-of-type {
     width: 100%;
     margin-top: 20px;
+  }
+
+  .email dl, .testimonial dl {
+    padding-right: 10px;
+    padding-bottom: 10px;
   }
 
   .email, .testimonial {
