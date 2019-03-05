@@ -160,9 +160,9 @@ nav li:nth-last-of-type(2) a {
 
 nav li:last-of-type a {
   border: 1px solid #4c7615;
-  border-radius: 10px;
+  border-radius: 4px;
   font-size: 14px;
-  padding: 5px 10px;
+  padding: 7px 10px;
 }
 
 nav li:last-of-type a:hover {
@@ -390,7 +390,7 @@ form dd {
 
 /* Admin Password Reset */
 .admin-login.reset {
-  margin-top: 50px;
+  margin-top: 0px;
 }
 
 /* Responsive */
