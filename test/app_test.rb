@@ -18,7 +18,7 @@ class FrankenKopterTest < MiniTest::Test
   end
 
   def admin_session
-    { 'rack.session' => { admin: {first_name: 'admin'} }}
+    { 'rack.session' => { admin: { first_name: 'admin' } } }
   end
 
   def create_testimonial
@@ -114,7 +114,8 @@ class FrankenKopterTest < MiniTest::Test
   end
 
   def test_invalid_testimonial
-    post '/testimonial/new', first_name: '', last_name: '', email: '', message: ''
+    post '/testimonial/new', first_name: '', last_name: '', email: '',
+                             message: ''
 
     assert_equal 302, last_response.status
     get last_response['Location']
@@ -188,7 +189,7 @@ class FrankenKopterTest < MiniTest::Test
   def test_admin_emails
     get '/admin/emails', {}, admin_session
 
-    assert_equal 200, last_response.status;
+    assert_equal 200, last_response.status
     assert_includes last_response.body, '<h1>Emails</h1>'
   end
 
@@ -208,7 +209,11 @@ class FrankenKopterTest < MiniTest::Test
   end
 
   def test_password_reset_valid
-    post '/admin/password_reset/authenticate', { user_name: 'admin', password: 'admin', new_password: 'admin', password_confirm: 'admin' }, admin_session
+    post '/admin/password_reset/authenticate', { user_name: 'admin',
+                                                 password: 'admin',
+                                                 new_password: 'admin',
+                                                 password_confirm: 'admin' },
+                                                 admin_session
 
     assert_equal 302, last_response.status
     get last_response['location']
@@ -216,7 +221,11 @@ class FrankenKopterTest < MiniTest::Test
   end
 
   def test_password_reset_invalid
-    post '/admin/password_reset/authenticate', {user_name: 'admin', password: 'null', password_confirm: 'null', new_password: 'null'}, admin_session
+    post '/admin/password_reset/authenticate', { user_name: 'admin',
+                                                 password: 'null',
+                                                 password_confirm: 'null',
+                                                 new_password: 'null' },
+                                                 admin_session
 
     assert_equal 302, last_response.status
     get last_response['location']
@@ -224,7 +233,10 @@ class FrankenKopterTest < MiniTest::Test
   end
 
   def test_password_reset_empty_new_password
-    post '/admin/password_reset/authenticate', {user_name: 'admin', password: 'admin', new_password: ''}, admin_session
+    post '/admin/password_reset/authenticate', { user_name: 'admin',
+                                                 password: 'admin',
+                                                 new_password: '' },
+                                                 admin_session
 
     assert_equal 302, last_response.status
     get last_response['location']

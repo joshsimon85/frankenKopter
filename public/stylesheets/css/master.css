@@ -1,5 +1,4 @@
 @import url('whitespace-reset.css');
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 @import url('https://fonts.googleapis.com/css?family=Chivo:400,900');
 /* Universal */
 * {
@@ -7,7 +6,7 @@
 }
 
 body {
-  font-family: 'Chivo', 'Roboto', 'Helvetica', sans-serif;
+  font-family: 'Chivo', 'Helvetica', sans-serif;
 }
 
 h1 {
@@ -104,6 +103,7 @@ nav {
 }
 
 nav.absolute {
+  background: transparent;
   color: #85c336;
   left: 0;
   margin-right: 0;
@@ -140,6 +140,7 @@ nav li:last-of-type a {
 
 nav a:hover {
   background: transparent;
+  color: #85c336;
 }
 
 nav a.active {
@@ -164,9 +165,11 @@ nav a.active {
 
 .home section {
   background-color: #fff;
+  color: #000;
 }
 
 .home section:first-of-type h2 {
+  background: transparent;
   color: #fff;
   text-align: center;
   font-size: 28px;
@@ -174,6 +177,7 @@ nav a.active {
 }
 
 .home section:first-of-type p {
+  background: transparent;
   color: #fff;
   font-family: 'Chivo', sans-serif;
   font-size: 20px;
@@ -230,6 +234,7 @@ nav a.active {
 /* About Page */
 .about {
   background: #ffffff;
+  color: #000;
   border-radius: 4px;
   margin: 0 auto 50px auto;
   padding: 10px;
@@ -248,6 +253,7 @@ nav a.active {
   background: #ffffff;
   border: 1px solid #cecece;
   border-radius: 4px;
+  color: #000;
   display: block;
   margin: 0 auto 100px auto;
   padding: 0 0 20px 20px;

@@ -2,3 +2,4 @@ todo.txt
 test_schema.sql
 schema.sql
 testimonial_data.sql
+.env

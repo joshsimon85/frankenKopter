@@ -21,7 +21,7 @@ $(function() {
       var $section = $(e.target).closest('section').next();
       var $popup = $section.find('.popup');
       var height = $(document).scrollTop();
-      
+
       $popup.css('top', String(height + 150) + 'px');
       $section.find('.popup-overlay').show();
       $popup.show();

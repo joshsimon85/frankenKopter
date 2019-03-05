@@ -1,13 +1,17 @@
 # FrankenKopter
 require 'sinatra'
 require 'bcrypt'
-require 'pony'
 
 require_relative 'database_persistence'
 
+configure(:production) do
+  require 'rack/ssl'
+  use Rack::SSL
+end
+
 configure do
   enable :sessions
-  set :session, 'secret'
+  set :session, ENV['SESSION_SECRET']
   set :erb, escape_html: true
 end
 
@@ -15,15 +19,20 @@ configure(:development) do
   require 'sinatra/reloader'
   require 'rubocop'
   require 'pry'
+  require 'dotenv/load'
   also_reload 'stylesheets/css/master.css'
   also_reload 'stylesheets/css/admin.css'
   also_reload 'database_persistence.rb'
 end
 
+configure(:test) do
+  require 'dotenv/load'
+end
+
 register do
   def auth(type)
     condition do
-      redirect '/login' unless send("is_#{type}?")
+      redirect '/login' unless send("#{type}?")
     end
   end
 end
@@ -38,7 +47,7 @@ after do
 end
 
 helpers do
-  def is_admin?
+  def admin?
     @admin != nil
   end
 
@@ -167,7 +176,7 @@ end
 
 get '/testimonial' do
   cache_control :public, 'no-cache, no-store, must-revalidate'
-  
+
   @title = 'FrankenKopter | Testimonial'
 
   erb :testimonial, layout: :layout_testimonial
@@ -199,14 +208,14 @@ post '/testimonial/new' do
 end
 
 # admin pages
-get '/admin', :auth => :admin do
+get '/admin', auth: :admin do
   cache_control :public, 'no-cache, no-store, must-revalidate'
 
   @title = 'FrankenKopter | Admin'
   @unread_test = @storage.unpublished_testimonials.length
   @unread_emails = @storage.unread_emails.length
 
-  erb :admin , layout: :layout_admin
+  erb :admin, layout: :layout_admin
 end
 
 get '/login' do
@@ -236,7 +245,7 @@ get '/logout' do
   redirect '/'
 end
 
-get '/admin/password_reset', :auth => :admin do
+get '/admin/password_reset', auth: :admin do
   cache_control :public, 'no-cache, no-store, must-revalidate'
 
   @title = 'FrankenKopter | Password Reset'
@@ -244,10 +253,10 @@ get '/admin/password_reset', :auth => :admin do
   erb :admin_password_reset, layout: :layout_admin
 end
 
-post '/admin/password_reset/authenticate', :auth => :admin do
+post '/admin/password_reset/authenticate', auth: :admin do
   if valid_admin?(params[:user_name], params[:password]) &&
-                  params[:new_password] != '' &&
-                  params[:new_password] == params[:password_confirm]
+                                      params[:new_password] != '' &&
+                                      params[:new_password] == params[:password_confirm]
 
 
     @storage.update_admin_password(params[:user_name],
@@ -270,7 +279,7 @@ post '/admin/password_reset/authenticate', :auth => :admin do
   end
 end
 
-get '/admin/emails', :auth => :admin do
+get '/admin/emails', auth: :admin do
   cache_control :public, 'no-cache, no-store, must-revalidate'
 
   @emails = @storage.emails
@@ -278,21 +287,21 @@ get '/admin/emails', :auth => :admin do
   erb :admin_emails, layout: :layout_admin
 end
 
-post '/admin/emails/destroy/:id', :auth => :admin do
+post '/admin/emails/destroy/:id', auth: :admin do
   @storage.delete_email(params[:id])
   session[:success] = 'Your email has been deleted!'
 
   redirect '/admin/emails'
 end
 
-post '/admin/emails/mark_viewed/:id', :auth => :admin do
+post '/admin/emails/mark_viewed/:id', auth: :admin do
   @storage.mark_email_viewed(params[:id])
   session[:success] = 'Your email has been maked as viewed'
 
   redirect '/admin/emails'
 end
 
-get '/admin/testimonials', :auth => :admin do
+get '/admin/testimonials', auth: :admin do
   cache_control :public, 'no-cache, no-store, must-revalidate'
 
   @title = 'FrankenKopter | Admin'
@@ -301,7 +310,7 @@ get '/admin/testimonials', :auth => :admin do
   erb :admin_testimonials, layout: :layout_admin
 end
 
-get '/admin/testimonials/edit/:id', :auth => :admin do
+get '/admin/testimonials/edit/:id', auth: :admin do
   cache_control :public, 'no-cache, no-store, must-revalidate'
 
   @testimonial = @storage.fetch_testimonial(params[:id].to_i)[0]
@@ -309,21 +318,21 @@ get '/admin/testimonials/edit/:id', :auth => :admin do
   erb :admin_edit_testimonial, layout: :layout_admin
 end
 
-post '/admin/testimonials/edit/:id', :auth => :admin do
+post '/admin/testimonials/edit/:id', auth: :admin do
   @storage.update_testimonial(params[:id], params[:message])
   session[:success] = 'Your testimonial has been updated!'
 
   redirect '/admin/testimonials'
 end
 
-post '/admin/testimonials/publish/:id', :auth => :admin do
+post '/admin/testimonials/publish/:id', auth: :admin do
   @storage.publish_testimonial(params[:id])
   session[:success] = 'Your testimonial has been published'
 
   redirect '/admin/testimonials'
 end
 
-post '/admin/testimonials/destroy/:id', :auth => :admin do
+post '/admin/testimonials/destroy/:id', auth: :admin do
   @storage.delete_testimonial(params[:id])
   session[:success] = 'Your testimonial has been deleted'
 
