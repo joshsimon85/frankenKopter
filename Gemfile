@@ -1,7 +1,7 @@
 # Gemfile
 source 'https://rubygems.org'
 
-ruby '2.6.0'
+ruby '2.5.0'
 
 gem 'bcrypt', '~> 3.1.0'
 gem 'dotenv', '~> 2.7', '>= 2.7.1'

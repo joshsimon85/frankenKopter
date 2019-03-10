@@ -3,6 +3,7 @@ require 'sinatra'
 require 'bcrypt'
 
 require_relative 'database_persistence'
+require_relative 'email.rb'
 
 configure(:production) do
   require 'rack/ssl'
@@ -155,6 +156,8 @@ post '/contact/new' do
 
   if !invalid_data
     @storage.add_email(data_hash)
+    SendgridWebMailer.send_email(params[:email], 'contact form', params[:message])
+
     session.clear
     session[:success] = 'Your message has been successfully sent'
 
@@ -194,6 +197,8 @@ post '/testimonial/new' do
 
   if !invalid_data
     @storage.add_testimonial(data_hash)
+    SendgridWebMailer.send_email(params[:email], 'New Testimonial', 'Kasey, you have a new testimonial awaiting revision on www.frankenkpter.com/admin/testimonials')
+
     session.clear
     session[:success] = 'Your testimonial has been successfully sent'
 
