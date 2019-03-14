@@ -1,6 +1,7 @@
 # FrankenKopter
 require 'sinatra'
 require 'bcrypt'
+require 'recaptcha'
 
 require_relative 'database_persistence'
 require_relative 'email.rb'
@@ -8,6 +9,11 @@ require_relative 'email.rb'
 configure(:production) do
   require 'rack/ssl'
   use Rack::SSL
+
+  Recaptcha.configure do |config|
+    config.site_key = ENV['RECAP_SITE_KEY']
+    config.secret_key = ENV['RECAP_SECRET_KEY']
+  end
 end
 
 configure do
@@ -21,6 +27,12 @@ configure(:development) do
   require 'rubocop'
   require 'pry'
   require 'dotenv/load'
+
+  Recaptcha.configure do |config|
+    config.site_key = '6Le7oRETAAAAAETt105rjswZ15EuVJiF7BxPROkY'
+    config.secret_key = '6Le7oRETAAAAAL5a8yOmEdmDi3b2pH7mq5iH1bYK'
+  end
+
   also_reload 'stylesheets/css/master.css'
   also_reload 'stylesheets/css/admin.css'
   also_reload 'database_persistence.rb'
@@ -29,6 +41,9 @@ end
 configure(:test) do
   require 'dotenv/load'
 end
+
+include Recaptcha::ClientHelper
+include Recaptcha::Verify
 
 register do
   def auth(type)
@@ -120,6 +135,11 @@ helpers do
     admin = @storage.find_admin(user_name)
     admin && valid_password?(admin[:password], password)
   end
+
+  def create_content(data)
+    data[:message] << "\nFrom: #{data[:first_name]} #{data[:last_name]}"
+    data[:message] << "\nPhone number: #{data[:phone_number]}"
+  end
 end
 
 not_found do
@@ -145,8 +165,8 @@ end
 
 post '/contact/new' do
   data_hash = {
-    first_name: params[:first_name],
-    last_name: params[:last_name],
+    first_name: params[:first_name].capitalize,
+    last_name: params[:last_name].capitalize,
     email: params[:email],
     phone_number: params[:phone_number],
     message: params[:message]
@@ -154,14 +174,23 @@ post '/contact/new' do
 
   invalid_data = validate(data_hash)
 
-  if !invalid_data
+  if !invalid_data && verify_recaptcha
     @storage.add_email(data_hash)
-    SendgridWebMailer.send_email(params[:email], 'contact form', params[:message])
-
+    data_hash['message'] = create_content(data_hash)
+    email = SendgridWebMailer.new
+    email.send(data_hash, 'NEW Contact Form Submission')
     session.clear
     session[:success] = 'Your message has been successfully sent'
 
     redirect '/'
+  elsif !verify_recaptcha
+    session[:error] = 'Please prove you are not a robot'
+
+    data_hash.each_key do |key|
+      session[key] = data_hash[key]
+    end
+
+    redirect '/contact'
   else
     data_hash.each_key do |key|
       session[key] = data_hash[key]
