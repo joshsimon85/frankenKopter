@@ -9,11 +9,6 @@ require_relative 'email.rb'
 configure(:production) do
   require 'rack/ssl'
   use Rack::SSL
-
-  Recaptcha.configure do |config|
-    config.site_key = ENV['RECAP_SITE_KEY']
-    config.secret_key = ENV['RECAP_SECRET_KEY']
-  end
 end
 
 configure do
@@ -28,11 +23,6 @@ configure(:development) do
   require 'pry'
   require 'dotenv/load'
 
-  Recaptcha.configure do |config|
-    config.site_key = '6Le7oRETAAAAAETt105rjswZ15EuVJiF7BxPROkY'
-    config.secret_key = '6Le7oRETAAAAAL5a8yOmEdmDi3b2pH7mq5iH1bYK'
-  end
-
   also_reload 'stylesheets/css/master.css'
   also_reload 'stylesheets/css/admin.css'
   also_reload 'database_persistence.rb'
@@ -40,6 +30,11 @@ end
 
 configure(:test) do
   require 'dotenv/load'
+end
+
+Recaptcha.configure do |config|
+  config.site_key = ENV['RECAP_API_KEY']
+  config.secret_key = ENV['RECAP_SECRET_KEY']
 end
 
 include Recaptcha::ClientHelper
