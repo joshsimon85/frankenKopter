@@ -13,7 +13,7 @@ gem 'pg', '~> 1.0.0'
 gem 'pry', '~> 0.11.0'
 gem 'rack-ssl', '~> 1.4', '>= 1.4.1'
 gem 'rack-test', '~> 0.8.0'
-gem 'recaptcha', '~> 3.3' # added
+gem 'recaptcha', '~> 3.3', require: 'recaptcha/rails'
 gem 'rubocop', '~> 0.52.0'
 gem 'sendgrid-ruby', '~> 5.3.0'
 gem 'sinatra', '~> 2.0.2'
