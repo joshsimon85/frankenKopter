@@ -9,6 +9,9 @@ require_relative 'email.rb'
 configure(:production) do
   require 'rack/ssl'
   use Rack::SSL
+  Recaptcha.site_key = '6Le7oRETAAAAAETt105rjswZ15EuVJiF7BxPROkY'
+  Recaptcha.secret_key = '6Le7oRETAAAAAL5a8yOmEdmDi3b2pH7mq5iH1bYK'
+  Recaptcha.proxy = 'https://www.frankenkopter.com'
 end
 
 configure do
@@ -127,12 +130,6 @@ helpers do
     data[:message] << "\nFrom: #{data[:first_name]} #{data[:last_name]}"
     data[:message] << "\nPhone number: #{data[:phone_number]}"
   end
-end
-
-Recaptcha.configure do |config|
-  config.site_key  = '6Le7oRETAAAAAETt105rjswZ15EuVJiF7BxPROkY'
-  config.secret_key = '6Le7oRETAAAAAL5a8yOmEdmDi3b2pH7mq5iH1bYK'
-  config.proxy = 'https://www.frankenkopter.com'
 end
 
 include Recaptcha::ClientHelper
