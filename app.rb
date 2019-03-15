@@ -32,11 +32,6 @@ configure(:test) do
   require 'dotenv/load'
 end
 
-Recaptcha.configure do |config|
-  config.site_key = ENV['RECAP_SITE_KEY']
-  config.secret_key = ENV['RECAP_SECRET_KEY']
-end
-
 include Recaptcha::ClientHelper
 include Recaptcha::Verify
 
@@ -169,7 +164,7 @@ post '/contact/new' do
 
   invalid_data = validate(data_hash)
 
-  if !invalid_data && verify_recaptcha
+  if !invalid_data && (verify_recaptcha secret_key: ENV['RECAP_SECRET_KEY'])
     @storage.add_email(data_hash)
     data_hash['message'] = create_content(data_hash)
     email = SendgridWebMailer.new
