@@ -1,7 +1,7 @@
 # FrankenKopter
 require 'sinatra'
 require 'bcrypt'
-require 'recaptcha/rail'
+require 'recaptcha'
 
 require_relative 'database_persistence'
 require_relative 'email.rb'
