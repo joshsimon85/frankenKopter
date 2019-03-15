@@ -66,7 +66,7 @@
       <dd class="invalid_text">Please provide a message</dd>
       <dd class="session_invalid"><%= session.delete(:message_error) %></dd>
     </dl>
-    <%== recaptcha_tags site_key: ENV['RECAP_SITE_KEY']%>
+    <!--< %== recaptcha_tags %>-->
     <input type="submit" name="submit" value="Submit">
     <p>Items marked with <span>*</span> are required</p>
   </form>

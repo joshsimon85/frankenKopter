@@ -1,7 +1,7 @@
 # FrankenKopter
 require 'sinatra'
 require 'bcrypt'
-require 'recaptcha/rails'
+#require 'recaptcha/rails'
 
 require_relative 'database_persistence'
 require_relative 'email.rb'
@@ -32,8 +32,8 @@ configure(:test) do
   require 'dotenv/load'
 end
 
-include Recaptcha::ClientHelper
-include Recaptcha::Verify
+#include Recaptcha::ClientHelper
+#include Recaptcha::Verify
 
 register do
   def auth(type)
@@ -173,14 +173,14 @@ post '/contact/new' do
     session[:success] = 'Your message has been successfully sent'
 
     redirect '/'
-  elsif !verify_recaptcha
-    session[:error] = 'Please prove you are not a robot'
+#  elsif !verify_recaptcha
+#    session[:error] = 'Please prove you are not a robot'
+#
+#    data_hash.each_key do |key|
+#      session[key] = data_hash[key]
+#    end
 
-    data_hash.each_key do |key|
-      session[key] = data_hash[key]
-    end
-
-    redirect '/contact'
+#    redirect '/contact'
   else
     data_hash.each_key do |key|
       session[key] = data_hash[key]
