@@ -67,6 +67,7 @@
       <dd class="session_invalid"><%= session.delete(:message_error) %></dd>
     </dl>
     <%== recaptcha_tags %>
+    <p id="invalid_recap"><%= session.delete(:recap_error) %></p>
     <input type="submit" name="submit" value="Submit">
     <p>Items marked with <span>*</span> are required</p>
   </form>

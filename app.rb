@@ -32,8 +32,8 @@ configure(:development) do
   require 'dotenv/load'
 
   Recaptcha.configure do |config|
-    config.site_key = ENV['RECAP_SITE_KEY']
-    config.secret_key = ENV['RECAP_SECRET_KEY']
+    config.site_key = ENV['RECAP_DEV_SITE_KEY']
+    config.secret_key = ENV['RECAP_DEV_SECRET_KEY']
   end
 
   helpers Recaptcha::ClientHelper
@@ -177,7 +177,7 @@ post '/contact/new' do
 
   invalid_data = validate(data_hash)
 
-  if !invalid_data && (verify_recaptcha secret_key: ENV['RECAP_SECRET_KEY'])
+  if !invalid_data && verify_recaptcha
     @storage.add_email(data_hash)
     data_hash['message'] = create_content(data_hash)
     email = SendgridWebMailer.new
@@ -186,15 +186,11 @@ post '/contact/new' do
     session[:success] = 'Your message has been successfully sent'
 
     redirect '/'
- elsif !verify_recaptcha
-    session[:error] = 'Please prove you are not a robot'
-
-    data_hash.each_key do |key|
-      session[key] = data_hash[key]
+  else
+    unless verify_recaptcha
+      session[:recap_error] = 'Please prove you are a human'
     end
 
-    redirect '/contact'
-  else
     data_hash.each_key do |key|
       session[key] = data_hash[key]
     end
@@ -218,6 +214,7 @@ get '/testimonial' do
 end
 
 post '/testimonial/new' do
+
   data_hash = {
     first_name: params[:first_name],
     last_name: params[:last_name],
@@ -227,7 +224,7 @@ post '/testimonial/new' do
 
   invalid_data = validate(data_hash)
 
-  if !invalid_data
+  if !invalid_data && verify_recaptcha
     @storage.add_testimonial(data_hash)
     SendgridWebMailer.send_email(params[:email], 'New Testimonial', 'Kasey, you have a new testimonial awaiting revision on www.frankenkpter.com/admin/testimonials')
 
@@ -236,6 +233,10 @@ post '/testimonial/new' do
 
     redirect '/'
   else
+    unless verify_recaptcha
+      session[:recap_error] = 'Please prove you are a human'
+    end
+    
     data_hash.each_key do |key|
       session[key] = data_hash[key]
     end

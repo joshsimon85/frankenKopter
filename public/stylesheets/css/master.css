@@ -64,6 +64,13 @@ footer {
   text-align: center;
 }
 
+#invalid_recap {
+  background: transparent;
+  color: red;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
 /* Flash Message */
 .flash-message {
   font-size: 16px;
@@ -330,6 +337,9 @@ nav a.active {
   margin-top: 20px;
 }
 
+.testimonial dl:last-of-type {
+  margin-bottom: 20px;
+}
 
 /* Responsive */
 @media screen and (max-width: 900px) {
