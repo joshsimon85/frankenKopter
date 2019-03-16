@@ -9,9 +9,14 @@ require_relative 'email.rb'
 configure(:production) do
   require 'rack/ssl'
   use Rack::SSL
-  Recaptcha.site_key = '6Le7oRETAAAAAETt105rjswZ15EuVJiF7BxPROkY'
-  Recaptcha.secret_key = '6Le7oRETAAAAAL5a8yOmEdmDi3b2pH7mq5iH1bYK'
-  Recaptcha.proxy = 'https://www.frankenkopter.com'
+
+  Recaptcha.configure do |config|
+    config.site_key = ENV['RECAP_SITE_KEY']
+    config.secret_key = ENV['RECAP_SECRET_KEY']
+  end
+
+  helpers Recaptcha::ClientHelper
+  helpers Recaptcha::Verify
 end
 
 configure do
@@ -25,6 +30,14 @@ configure(:development) do
   require 'rubocop'
   require 'pry'
   require 'dotenv/load'
+
+  Recaptcha.configure do |config|
+    config.site_key = ENV['RECAP_SITE_KEY']
+    config.secret_key = ENV['RECAP_SECRET_KEY']
+  end
+
+  helpers Recaptcha::ClientHelper
+  helpers Recaptcha::Verify
 
   also_reload 'stylesheets/css/master.css'
   also_reload 'stylesheets/css/admin.css'
@@ -131,9 +144,6 @@ helpers do
     data[:message] << "\nPhone number: #{data[:phone_number]}"
   end
 end
-
-include Recaptcha::ClientHelper
-include Recaptcha::Verify
 
 not_found do
   status 404

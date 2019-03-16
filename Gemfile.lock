@@ -36,7 +36,7 @@ GEM
     rack-test (0.8.3)
       rack (>= 1.0, < 3)
     rainbow (3.0.0)
-    recaptcha (3.4.0)
+    recaptcha (4.13.1)
       json
     rubocop (0.52.1)
       parallel (~> 1.10)
@@ -80,7 +80,7 @@ DEPENDENCIES
   puma
   rack-ssl (~> 1.4, >= 1.4.1)
   rack-test (~> 0.8.0)
-  recaptcha (~> 3.3)
+  recaptcha (~> 4.13.0)
   rubocop (~> 0.52.0)
   sendgrid-ruby (~> 5.3.0)
   sinatra (~> 2.0.2)
