@@ -233,7 +233,7 @@ post '/testimonial/new' do
 
   if !invalid_data && verify_recaptcha
     @storage.add_testimonial(data_hash)
-
+    send_testimonial_mail(data_hash)
     session.clear
     session[:success] = 'Your testimonial has been successfully sent'
 
