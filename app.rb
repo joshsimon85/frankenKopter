@@ -14,38 +14,34 @@ configure(:production) do
     config.site_key = ENV['RECAP_SITE_KEY']
     config.secret_key = ENV['RECAP_SECRET_KEY']
   end
-
-  helpers Recaptcha::ClientHelper
-  helpers Recaptcha::Verify
 end
 
 configure do
   enable :sessions
   set :session, ENV['SESSION_SECRET']
   set :erb, escape_html: true
+
+  helpers Recaptcha::ClientHelper
+  helpers Recaptcha::Verify
 end
 
-configure(:development) do
-  require 'sinatra/reloader'
-  require 'rubocop'
-  require 'pry'
+configure(:development, :test) do
   require 'dotenv/load'
 
   Recaptcha.configure do |config|
     config.site_key = ENV['RECAP_DEV_SITE_KEY']
     config.secret_key = ENV['RECAP_DEV_SECRET_KEY']
   end
+end
 
-  helpers Recaptcha::ClientHelper
-  helpers Recaptcha::Verify
+configure(:development) do
+  require 'sinatra/reloader'
+  require 'rubocop'
+  require 'pry'
 
   also_reload 'stylesheets/css/master.css'
   also_reload 'stylesheets/css/admin.css'
   also_reload 'database_persistence.rb'
-end
-
-configure(:test) do
-  require 'dotenv/load'
 end
 
 register do
@@ -138,11 +134,6 @@ helpers do
     admin = @storage.find_admin(user_name)
     admin && valid_password?(admin[:password], password)
   end
-
-  def create_content(data)
-    data[:message] << "\nFrom: #{data[:first_name]} #{data[:last_name]}"
-    data[:message] << "\nPhone number: #{data[:phone_number]}"
-  end
 end
 
 not_found do
@@ -179,9 +170,11 @@ post '/contact/new' do
 
   if !invalid_data && verify_recaptcha
     @storage.add_email(data_hash)
-    data_hash['message'] = create_content(data_hash)
     email = SendgridWebMailer.new
-    email.send(data_hash, 'NEW Contact Form Submission')
+    email.create_contact_email(data_hash)
+    email.send
+    #email.create_contact_email_response(data_hash)
+    #email.send
     session.clear
     session[:success] = 'Your message has been successfully sent'
 
@@ -214,7 +207,6 @@ get '/testimonial' do
 end
 
 post '/testimonial/new' do
-
   data_hash = {
     first_name: params[:first_name],
     last_name: params[:last_name],
@@ -226,7 +218,6 @@ post '/testimonial/new' do
 
   if !invalid_data && verify_recaptcha
     @storage.add_testimonial(data_hash)
-    SendgridWebMailer.send_email(params[:email], 'New Testimonial', 'Kasey, you have a new testimonial awaiting revision on www.frankenkpter.com/admin/testimonials')
 
     session.clear
     session[:success] = 'Your testimonial has been successfully sent'
@@ -236,7 +227,7 @@ post '/testimonial/new' do
     unless verify_recaptcha
       session[:recap_error] = 'Please prove you are a human'
     end
-    
+
     data_hash.each_key do |key|
       session[key] = data_hash[key]
     end
@@ -293,9 +284,8 @@ end
 
 post '/admin/password_reset/authenticate', auth: :admin do
   if valid_admin?(params[:user_name], params[:password]) &&
-                                      params[:new_password] != '' &&
-                                      params[:new_password] == params[:password_confirm]
-
+     params[:new_password] != '' &&
+     params[:new_password] == params[:password_confirm]
 
     @storage.update_admin_password(params[:user_name],
                                    encrypt_password(params[:new_password]))

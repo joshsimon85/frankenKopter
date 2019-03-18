@@ -386,7 +386,11 @@ form dd {
   background: #fff;
   color: #000;
 }
-/* Admin Emails */
+/* Admin Bulk Actions */
+.bulk_actions {
+  margin: 0 auto;
+  width: 70%;
+}
 
 /* Admin Password Reset */
 .admin-login.reset {
