@@ -11,77 +11,68 @@ class SendgridWebMailer
   end
 
   def create_contact_email(data)
-    email_data = {
-      "personalizations": [
-        {
-          "to": [
-            {
-              "email": 'kasey@frankenkopter.com',
-              "name": 'Kasey Koch'
-            }
-          ],
-          "subject": 'Frankenkopter New Contact Form Submission'
-        }
-      ],
-      "from": {
-        "email": data[:email],
-        "name": "#{data[:first_name]} #{data[:last_name]}"
-      },
-      "content": [
-        {
-          "type": 'text/plain',
-          "value": data[:message]
-        }
-      ]
-    }
-
-    #@email = JSON.generate(email_data)
-  @email = Mail.new
-  @email.template_id = 'd-2886d4615c1748529903831b2d65cdd3'
-  @email.from = Email.new(email: data[:email])
-  #subject = 'Dynamic Template Data Hello World from the SendGrid Ruby Library'
-  #mail.subject = subject
-  personalization = Personalization.new
-  personalization.add_to(Email.new(email: 'kasey@frankenkopter.com', name: 'Kasey Koch'))
-  personalization.add_dynamic_template_data({
-    "variable" => [
-      {"content" => "#{data[:message]}"}, {"first_name" => "#{data[:first_name]}"}, {"last_name" => data[:last_name]}, {"phone_number" => data[:phone_number]}
-    ]
-  })
-  @email.add_personalization(personalization)
+    full_name = "#{data[:first_name]} #{data[:last_name]}"
+    @email = Mail.new
+    @email.template_id = 'd-2886d4615c1748529903831b2d65cdd3'
+    @email.from = Email.new(email: data[:email], name: full_name)
+    personalization = Personalization.new
+    personalization.add_to(Email.new(email: 'kasey@frankenkopter.com',
+                                     name: 'Kasey Koch'))
+    personalization.add_dynamic_template_data({
+                                                "content": data[:message],
+                                                "first_name": data[:first_name],
+                                                "last_name": data[:last_name],
+                                                "phone_number": data[:phone_number]
+                                              })
+    @email.add_personalization(personalization)
   end
 
   def create_contact_email_response(data)
-    email_data = {
-      "personalizations": [
-        {
-          "to": [
-            {
-              "email": data[:email],
-              "name": "#{data[:first_name]} #{data[:last_name]}"
-            }
-          ],
-          "subject": 'Frankenkopter Contact Form Submission'
-        }
-      ],
-      "from": {
-        "email": 'kasey@frankenkopter.com',
-        "name": 'Frankenkopter'
-      },
-      "content": [
-        {
-          "type": 'text/html',
-          "value": 'Thank you for you reaching out to ' \
-          '<a href="www.frankenkopter.com">Frankenkopter</a>. We will get ' \
-          'back to you within the next 48 hours.'
-        }
-      ]
-    }
+    full_name = "#{data[:first_name]} #{data[:last_name]}"
+    @email = Mail.new
+    @email.template_id = 'd-899bcf941951427393a067e1b2b06270'
+    @email.from = Email.new(email: 'no-reply@frankenkopter', name: 'Kasey Koch')
+    personalization = Personalization.new
+    personalization.add_to(Email.new(email: data[:email],
+                                     name: full_name))
+    personalization.add_dynamic_template_data({
+                                                "first_name": data[:first_name],
+                                                "last_name": data[:last_name]
+                                              })
+    @email.add_personalization(personalization)
+  end
 
-    @email = JSON.generate(email_data)
+  def create_testimonial_email(data)
+    full_name = "#{data[:first_name]} #{data[:last_name]}"
+    @email = Mail.new
+    @email.template_id = 'd-5211527617634b83a07be52580f2ab5e'
+    @email.from = Email.new(email: data[:email], name: full_name)
+    personalization = Personalization.new
+    personalization.add_to(Email.new(email: 'kasey@frankenkopter.com',
+                                     name: 'Kasey Koch'))
+    personalization.add_dynamic_template_data({
+                                                "first_name": data[:first_name],
+                                                "last_name": data[:last_name]
+                                              })
+    @email.add_personalization(personalization)
+  end
+
+  def create_testimonial_response(data)
+    full_name = "#{data[:first_name]} #{data[:last_name]}"
+    @email = Mail.new
+    @email.template_id = 'd-4412c3c99eaf484085086f6cd85a72f9'
+    @email.from = Email.new(email: 'no-reply@frankenkopter.com', name: 'Kasey Koch')
+    personalization = Personalization.new
+    personalization.add_to(Email.new(email: data[:email], name: full_name))
+    personalization.add_dynamic_template_data({
+                                                "first_name": data[:first_name],
+                                                "last_name": data[:last_name]
+                                              })
+    @email.add_personalization(personalization)
   end
 
   def send
-    response = @sg.client.mail._('send').post(request_body: @email.to_json) #json.parse
+    response = @sg.client.mail._('send').post(request_body: @email.to_json)
+    response.status_code
   end
 end

@@ -42,6 +42,7 @@ configure(:development) do
   also_reload 'stylesheets/css/master.css'
   also_reload 'stylesheets/css/admin.css'
   also_reload 'database_persistence.rb'
+  also_reload 'email.rb'
 end
 
 register do
@@ -134,6 +135,24 @@ helpers do
     admin = @storage.find_admin(user_name)
     admin && valid_password?(admin[:password], password)
   end
+
+  def send_contact_mail(data_hash)
+    admin_email = SendgridWebMailer.new
+    admin_email.create_contact_email(data_hash)
+    admin_email.send
+    auto_response = SendgridWebMailer.new
+    auto_response.create_contact_email_response(data_hash)
+    auto_response.send
+  end
+
+  def send_testimonial_mail(data_hash)
+    admin_email = SendgridWebMailer.new
+    admin_email.create_testimonial_email(data_hash)
+    admin_email.send
+    auto_response = SendgridWebMailer.new
+    auto_response.create_testimonial_response(data_hash)
+    auto_response.send
+  end
 end
 
 not_found do
@@ -170,11 +189,7 @@ post '/contact/new' do
 
   if !invalid_data && verify_recaptcha
     @storage.add_email(data_hash)
-    email = SendgridWebMailer.new
-    email.create_contact_email(data_hash)
-    email.send
-    #email.create_contact_email_response(data_hash)
-    #email.send
+    send_contact_mail(data_hash)
     session.clear
     session[:success] = 'Your message has been successfully sent'
 
