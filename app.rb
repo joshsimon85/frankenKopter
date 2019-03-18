@@ -140,18 +140,18 @@ helpers do
     admin_email = SendgridWebMailer.new
     admin_email.create_contact_email(data_hash)
     admin_email.send
-    auto_response = SendgridWebMailer.new
-    auto_response.create_contact_email_response(data_hash)
-    auto_response.send
+    #auto_response = SendgridWebMailer.new
+    #auto_response.create_contact_email_response(data_hash)
+    #auto_response.send
   end
 
   def send_testimonial_mail(data_hash)
     admin_email = SendgridWebMailer.new
     admin_email.create_testimonial_email(data_hash)
     admin_email.send
-    auto_response = SendgridWebMailer.new
-    auto_response.create_testimonial_response(data_hash)
-    auto_response.send
+    #auto_response = SendgridWebMailer.new
+    #auto_response.create_testimonial_response(data_hash)
+    #auto_response.send
   end
 end
 
