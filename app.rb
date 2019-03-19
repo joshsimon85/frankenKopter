@@ -140,18 +140,12 @@ helpers do
     admin_email = SendgridWebMailer.new
     admin_email.create_contact_email(data_hash)
     admin_email.send
-    #auto_response = SendgridWebMailer.new
-    #auto_response.create_contact_email_response(data_hash)
-    #auto_response.send
   end
 
   def send_testimonial_mail(data_hash)
     admin_email = SendgridWebMailer.new
     admin_email.create_testimonial_email(data_hash)
     admin_email.send
-    #auto_response = SendgridWebMailer.new
-    #auto_response.create_testimonial_response(data_hash)
-    #auto_response.send
   end
 end
 
@@ -189,9 +183,14 @@ post '/contact/new' do
 
   if !invalid_data && verify_recaptcha
     @storage.add_email(data_hash)
-    send_contact_mail(data_hash)
+    status = send_contact_mail(data_hash)
     session.clear
-    session[:success] = 'Your message has been successfully sent'
+    if %w[202 200].include?(status)
+      session[:success] = 'Your message has been successfully sent'
+    else
+      session[:error] = 'There was a problem sending your email, please try ' \
+                        'again later'
+    end
 
     redirect '/'
   else
