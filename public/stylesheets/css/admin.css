@@ -98,6 +98,11 @@ button:focus {
   outline: none;
 }
 
+.error_message {
+  color: #cf0e0e;
+  display: none;
+  margin-left: 10px;
+}
 /* Flash Message */
 .flash-message {
   font-size: 16px;
@@ -243,6 +248,13 @@ nav a.active {
 
 .testimonial dl, .email dl {
   display: inline-block;
+  top: 7px;
+  position: relative;
+}
+
+.testimonial input[type="checkbox"], .email input[type="checkbox"] {
+  top: 7px;
+  position: relative;
 }
 
 /* Overlay and Form */
@@ -260,6 +272,7 @@ nav a.active {
 
 form dl {
   margin-bottom: 15px;
+  vertical-align: middle;
 }
 
 form dt {
@@ -271,7 +284,7 @@ form dd {
   font-size: 16px;
 }
 
-.third {
+.inline {
   display: inline-block;
   margin-right: 20px;
 }
@@ -326,28 +339,50 @@ form dd {
   width: 40%;
 }
 
-.popup p {
+.modal p, .popup p {
   font-size: 18px;
   text-align: center;
 }
 
-.popup p:nth-of-type(2) {
+.modal p:nth-last-of-type(1), .popup p:nth-last-of-type(1) {
+  color: #cf0e0e;
+}
+
+.modal p:nth-of-type(2), .popup p:nth-of-type(2) {
   border-bottom: 2px solid #cecece;
   font-size: 16px;
   margin-top: 6px;
   padding-bottom: 5px;
 }
 
-.popup fieldset {
+.modal fieldset, .popup fieldset {
   margin: 25px 0;
   text-align: center;
 }
 
-.popup .cancel {
+.modal .cancel, .popup .cancel {
   background: transparent; /* problematic with popups? */
   border-radius: 4px;
   color: #fff;
   width: 75px;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 4px;
+  color: #000;
+  display: none;
+  left: 30%;
+  padding-top: 20px;
+  position: fixed;
+  text-align: center;
+  top: 35%;
+  width: 40%;
+  z-index: 4;
+}
+
+.bulk_actions_viewed input[type="submit"] {
+  width: 100px;
 }
 
 /* Edit Testimonial */
@@ -386,9 +421,24 @@ form dd {
   background: #fff;
   color: #000;
 }
+
 /* Admin Bulk Actions */
+.bulk_actions select {
+  background: #ececec;
+  border: 1px solid #cecece;
+  border-radius: 4px;
+  color: #000;
+  font-size: 16px;
+}
+
+.bulk_actions select:focus {
+  outline: none;
+}
+
 .bulk_actions {
+  border-top: 1px solid #cecece;
   margin: 0 auto;
+  padding-top: 10px;
   width: 70%;
 }
 

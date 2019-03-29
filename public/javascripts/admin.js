@@ -1,18 +1,20 @@
 $(function() {
+  let $overlay = $('.overlay');
   var app = {
     handleView: function(e) {
-      e.preventDefault();
-      var $overlay = $(e.target).parent().next().find('.overlay');
-      var $form = $overlay.next();
+      //e.preventDefault();
+
+      var $form = $(e.target).parent().next().find('.overlay-form');
       var height = $(document).scrollTop();
 
-      $form.css('top', String(height + 50) + 'px');
+      $form.css('top', String(height + 30) + 'px');
       $overlay.show();
       $form.show();
     },
     handleExit: function(e) {
+      e.stopPropagation();
+
       var $form = $(e.target).parent();
-      var $overlay = $form.prev();
 
       $form.hide();
       $overlay.hide();
@@ -30,11 +32,31 @@ $(function() {
       $(e.target).closest('section').find('.popup-overlay').hide();
       $(e.target).closest('section').find('.popup').hide();
     },
+    handleBulkSubmit: function(e) {
+      e.stopPropagation();
+      var selectVal = $('[name="bulk_action"').val();
+      var $errorMsg = $('.bulk_actions .error_message');
+      var $bulkViewed = $('.bulk_actions_viewed');
+      var $bulkDelete = $('.bulk_actions_delete');
+
+      $errorMsg.hide();
+
+      if (selectVal === 'viewed') {
+        $overlay.show();
+        $bulkViewed.show();
+      } else if (selectVal === 'delete') {
+        $overlay.show();
+        $bulkDelete.show();
+      } else {
+        $errorMsg.show();
+      }
+    },
     bindEvents: function() {
-      $('.testimonial, .email').on('click', 'button', this.handleView.bind(this));
+      $('.testimonials, .emails').on('click', 'button', this.handleView.bind(this));
       $('.exit').on('click', this.handleExit.bind(this));
       $('.btn.danger').on('click', this.handleDelete.bind(this));
       $('.popup').on('click', this.handleCancel.bind(this));
+      $('[name="bulk_submit"]').on('click', this.handleBulkSubmit.bind(this));
     },
     setColor: function() {
       $('.published, .viewed').each(function(_, dd) {

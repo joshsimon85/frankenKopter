@@ -343,6 +343,14 @@ post '/admin/emails/mark_viewed/:id', auth: :admin do
   redirect '/admin/emails'
 end
 
+post '/admin/email/bulk_delete', auth: :admin do
+  redirect '/admin'
+end
+
+post '/admin/email/bulk_viewed', auth: :admin do
+  redirect '/admin'
+end
+
 get '/admin/testimonials', auth: :admin do
   cache_control :public, 'no-cache, no-store, must-revalidate'
 
