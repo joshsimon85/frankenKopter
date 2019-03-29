@@ -16,10 +16,6 @@
   <% @emails.each do |email| %>
     <section class="email">
       <dl>
-        <dt></dt>
-        <dd><input type="checkbox" value="<%= email[:id] %>"></dd>
-      </dl>
-      <dl>
         <dt>First Name</dt>
         <dd><%= email[:first_name].capitalize %></dd>
       </dl>
@@ -105,18 +101,4 @@
       </div>
     </section>
   <% end %>
-  <section class="bulk_actions">
-    <dl>
-      <dt></dt>
-      <dd>
-        <select name="">
-          <option value="">Select A Bulk Option</option>
-          <option value="delete">Delete</option>
-          <option value="mark_read">Mark Viewed</option>
-        </select>
-      </dd>
-      <dt></dt>
-      <dd><button type="button" name="button">Submit</button></dd>
-    </dl>
-  </section>
 </main>
