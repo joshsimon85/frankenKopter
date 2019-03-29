@@ -343,12 +343,32 @@ post '/admin/emails/mark_viewed/:id', auth: :admin do
   redirect '/admin/emails'
 end
 
-post '/admin/email/bulk_delete', auth: :admin do
-  redirect '/admin'
+ERR_MSG = 'Nothing was selected to preform bulk actions on'.freeze
+
+post '/admin/emails/bulk_delete', auth: :admin do
+  ids = params.values.slice(0..-2).map(&:to_i)
+
+  if ids.empty?
+    session[:error] = ERR_MSG
+  else
+    ids.each { |id| @storage.delete_email(id) }
+    session[:success] = 'Your emails have been deleted'
+  end
+
+  redirect '/admin/emails'
 end
 
-post '/admin/email/bulk_viewed', auth: :admin do
-  redirect '/admin'
+post '/admin/emails/bulk_viewed', auth: :admin do
+  ids = params.values.slice(0..-2).map(&:to_i)
+
+  if ids.empty?
+    session[:error] = ERR_MSG
+  else
+    ids.each { |id| @storage.mark_email_viewed(id) }
+    session[:success] = 'Your emails have been marked as viewed'
+  end
+
+  redirect '/admin/emails'
 end
 
 get '/admin/testimonials', auth: :admin do

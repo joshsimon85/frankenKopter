@@ -1,8 +1,8 @@
 $(function() {
-  let $overlay = $('.overlay');
+  var $overlay = $('.overlay');
   var app = {
     handleView: function(e) {
-      //e.preventDefault();
+      e.preventDefault();
 
       var $form = $(e.target).parent().next().find('.overlay-form');
       var height = $(document).scrollTop();
@@ -51,12 +51,19 @@ $(function() {
         $errorMsg.show();
       }
     },
+    handleBulkCancel: function(e) {
+      e.stopPropagation();
+
+      $('.bulk_actions_viewed, .bulk_actions_delete').hide();
+      $overlay.hide();
+    },
     bindEvents: function() {
       $('.testimonials, .emails').on('click', 'button', this.handleView.bind(this));
       $('.exit').on('click', this.handleExit.bind(this));
       $('.btn.danger').on('click', this.handleDelete.bind(this));
       $('.popup').on('click', this.handleCancel.bind(this));
       $('[name="bulk_submit"]').on('click', this.handleBulkSubmit.bind(this));
+      $('[name="bulk_cancel"]').on('click', this.handleBulkCancel.bind(this));
     },
     setColor: function() {
       $('.published, .viewed').each(function(_, dd) {

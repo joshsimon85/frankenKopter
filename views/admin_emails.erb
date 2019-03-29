@@ -13,12 +13,15 @@
 </header>
 <main class="emails">
   <h1>Emails</h1>
-  <form action="/admin/email/bulk_delete" method="post">
+  <% if @emails.empty? %>
+    <h2>You don't have any emails!</h2>
+  <% end %>
+  <form action="/admin/emails/bulk_delete" method="post">
     <% @emails.each do |email| %>
       <section class="email">
         <dl>
           <dt></dt>
-          <dd><input type="checkbox" name="bulk_select" value="<%= email[:id] %>"></dd>
+          <dd><input type="checkbox" name="bulk_select_<%= email[:id] %>" value="<%= email[:id] %>"></dd>
         </dl>
         <dl>
           <dt>First Name</dt>
