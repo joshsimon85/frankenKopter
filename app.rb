@@ -345,6 +345,23 @@ end
 
 ERR_MSG = 'Nothing was selected to preform bulk actions on'.freeze
 
+post '/admin/testimonials/bulk_modify', auth: :admin do
+  option = params['bulk_action']
+  ids = params.values.slice(0..-2).map(&:to_i)
+
+  if ids.empty?
+    session[:error] = ERR_MSG
+  elsif option == 'publish'
+    ids.each { |id| @storage.publish_testimonial(id) }
+    session[:success] = 'Your selected testimonials have been published'
+  else
+    ids.each { |id| @storage.delete_testimonial(id) }
+    session[:success] = 'Your selected testimonials have been deleted'
+  end
+
+  redirect '/admin/testimonials'
+end
+
 post '/admin/emails/bulk_delete', auth: :admin do
   ids = params.values.slice(0..-2).map(&:to_i)
 
@@ -352,7 +369,7 @@ post '/admin/emails/bulk_delete', auth: :admin do
     session[:error] = ERR_MSG
   else
     ids.each { |id| @storage.delete_email(id) }
-    session[:success] = 'Your emails have been deleted'
+    session[:success] = 'Your selected emails have been deleted'
   end
 
   redirect '/admin/emails'
@@ -365,7 +382,7 @@ post '/admin/emails/bulk_viewed', auth: :admin do
     session[:error] = ERR_MSG
   else
     ids.each { |id| @storage.mark_email_viewed(id) }
-    session[:success] = 'Your emails have been marked as viewed'
+    session[:success] = 'Your selected emails have been marked as viewed'
   end
 
   redirect '/admin/emails'

@@ -383,7 +383,7 @@ form dd {
   z-index: 4;
 }
 
-.bulk_actions_viewed input[type="submit"] {
+.emails .bulk_actions_viewed input[type="submit"] {
   width: 100px;
 }
 

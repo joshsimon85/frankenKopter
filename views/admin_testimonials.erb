@@ -13,43 +13,28 @@
 </header>
 <main class="testimonials">
   <h1>Testimonials</h1>
-  <% @testimonials.each do |testimonial| %>
-    <section class="testimonial">
-      <dl>
-        <dt>First Name</dt>
-        <dd><%= testimonial[:first_name].capitalize %></dd>
-      </dl>
-      <dl>
-        <dt>Last Name</dt>
-        <dd><%= testimonial[:last_name].capitalize %></dd>
-      </dl>
-      <dl>
-        <dt>Email Address</dt>
-        <dd><%= testimonial[:email] %></dd>
-      </dl>
-      <dl>
-        <dt>Submitted</dt>
-        <dd><%= testimonial[:submitted] %></dd>
-      </dl>
-      <dl>
-        <dt>Published</dt>
-        <dd class="published"><%= testimonial[:published] %></dd>
-      </dl>
-      <button class="btn flex" type="button" name="view">View Message</button>
-    </section>
-    <section>
-      <div class="overlay"></div>
-      <form class="overlay-form" action="/admin/testimonials/publish/<%= testimonial[:id] %>" method="post">
-        <button class="exit" type="button" name="exit"></button>
-        <dl class="third">
+  <% if @testimonials.empty? %>
+    <h2>You don't have any testimonials!</h2>
+  <% end %>
+  <form class="" action="/admin/testimonials/bulk_modify" method="post">
+    <% @testimonials.each do |testimonial| %>
+      <section class="testimonial">
+        <dl>
+          <dt></dt>
+          <dd>
+            <input type="checkbox" name="bulk_select_<%= testimonial[:id] %>"
+                   value="<%= testimonial[:id] %>">
+          </dd>
+        </dl>
+        <dl>
           <dt>First Name</dt>
           <dd><%= testimonial[:first_name].capitalize %></dd>
         </dl>
-        <dl class="third">
+        <dl>
           <dt>Last Name</dt>
           <dd><%= testimonial[:last_name].capitalize %></dd>
         </dl>
-        <dl class="third">
+        <dl>
           <dt>Email Address</dt>
           <dd><%= testimonial[:email] %></dd>
         </dl>
@@ -61,31 +46,88 @@
           <dt>Published</dt>
           <dd class="published"><%= testimonial[:published] %></dd>
         </dl>
-        <dl>
-          <dt class="centered">Testimonial</dt>
-          <dd><textarea readonly rows="8" cols="80"><%= testimonial[:body] %></textarea></dd>
-        </dl>
-        <div class="actions">
-          <a class="btn" href="/admin/testimonials/edit/<%= testimonial[:id] %>">Edit</a>
-          <% if  testimonial[:published] == 'false' %>
-            <input class="btn" type="submit" name="publish" value="Publish">
-          <% end %>
-          <button class="btn danger" type="button" name="Delete">Delete</button>
+        <button class="btn flex" type="button" name="view">View Message</button>
+      </section>
+      <section>
+        <div class="overlay-form">
+          <button class="exit" type="button" name="exit"></button>
+          <dl class="inline">
+            <dt>First Name</dt>
+            <dd><%= testimonial[:first_name].capitalize %></dd>
+          </dl>
+          <dl class="inline">
+            <dt>Last Name</dt>
+            <dd><%= testimonial[:last_name].capitalize %></dd>
+          </dl>
+          <dl class="inline">
+            <dt>Email Address</dt>
+            <dd><%= testimonial[:email] %></dd>
+          </dl>
+          <dl>
+            <dt>Submitted</dt>
+            <dd><%= testimonial[:submitted] %></dd>
+          </dl>
+          <dl>
+            <dt>Published</dt>
+            <dd class="published"><%= testimonial[:published] %></dd>
+          </dl>
+          <dl>
+            <dt class="centered">Testimonial</dt>
+            <dd><textarea readonly rows="8" cols="80"><%= testimonial[:body] %></textarea></dd>
+          </dl>
+          <fieldset class="actions">
+            <a class="btn" href="/admin/testimonials/edit/<%= testimonial[:id] %>">Edit</a>
+            <% if  testimonial[:published] == 'false' %>
+              <input class="btn" type="submit" name="publish" value="Publish"
+                     formaction="/admin/testimonials/publish/<%= testimonial[:id] %>">
+            <% end %>
+            <button class="btn danger" type="button" name="Delete">Delete</button>
+          </fieldset>
         </div>
-      </form>
-    </section>
-    <section>
-      <div class="popup-overlay"></div>
-      <div class="popup">
-        <p>Are you sure you want to delete this testimonial?</p>
-        <p>This action can't be undone!</p>
-        <form action="/admin/testimonials/destroy/<%= testimonial[:id] %>" method="post">
+      </section>
+      <section>
+        <div class="popup-overlay"></div>
+        <div class="popup">
+          <p>Are you sure you want to delete this testimonial?</p>
+          <p>This action can't be undone!</p>
           <fieldset>
             <button class="btn" type="button" name="cancel">Cancel</button>
-            <input class="btn danger" type="submit" name="delete" value="Delete">
+            <input class="btn danger" type="submit" name="delete" value="Delete"
+                   formaction="/admin/testimonials/destroy/<%= testimonial[:id] %>">
           </fieldset>
-        </form>
-      </div>
-    </section>
-  <% end %>
+        </div>
+      </section>
+    <% end %>
+    <fieldset class="bulk_actions">
+      <dl>
+        <dt></dt>
+        <dd>
+          <select name="bulk_action">
+            <option value="">Bulk Actions</option>
+            <option value="publish">Publish</option>
+            <option value="delete">Delete</option>
+          </select>
+          <span class="error_message">Please select an option</span>
+        </dd>
+      </dl>
+      <button class="btn" type="button" name="bulk_submit">Submit</button>
+    </fieldset>
+    <div class="overlay"></div>
+    <div class="bulk_actions_delete modal">
+      <p>Are you sure you want to delete these testimonials?</p>
+      <p>This action can't be undone!</p>
+      <fieldset>
+        <button class="btn" type="button" name="bulk_cancel">Cancel</button>
+        <input class="btn danger" type="submit" value="Delete">
+      </fieldset>
+    </div>
+    <div class="bulk_actions_viewed modal">
+      <p>Are you sure you want to publish these testimonials?</p>
+      <p>This action can't be undone!</p>
+      <fieldset>
+        <button class="btn" type="button" name="bulk_cancel">Cancel</button>
+        <input class="btn danger" type="submit" value="Publish">
+      </fieldset>
+    </div>
+  </form>
 </main>

@@ -41,7 +41,7 @@ $(function() {
 
       $errorMsg.hide();
 
-      if (selectVal === 'viewed') {
+      if (selectVal === 'viewed' || selectVal ==='publish') {
         $overlay.show();
         $bulkViewed.show();
       } else if (selectVal === 'delete') {
