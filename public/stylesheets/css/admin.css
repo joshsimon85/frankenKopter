@@ -503,6 +503,11 @@ form dd {
     width: 100%;
   }
 
+  .modal {
+    left: 0;
+    width: 100%;
+  }
+
   .single-testimonial {
     width: 100%;
   }
