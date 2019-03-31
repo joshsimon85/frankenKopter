@@ -34,7 +34,7 @@ $(function() {
     },
     handleBulkSubmit: function(e) {
       e.stopPropagation();
-      var selectVal = $('[name="bulk_action"').val();
+      var selectVal = $('[name="bulk_action"]').val();
       var $errorMsg = $('.bulk_actions .error_message');
       var $bulkViewed = $('.bulk_actions_viewed');
       var $bulkDelete = $('.bulk_actions_delete');
